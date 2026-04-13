@@ -5,3 +5,9 @@
 *.pth
 *.pt
 *.dat
+datasets/
+train_safety_classifier/
+slurm_bash/
+mlruns/
+logs/
+archive/

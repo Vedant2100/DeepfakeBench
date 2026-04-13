@@ -1,5 +1,5 @@
 # log dir 
-log_dir: /data/home/zhiyuanyan/logs/i3d
+log_dir: /data/AmitRoyChowdhury/vedant/DeepfakeBench/logs
 
 # model setting
 pretrained: ./training/pretrained/I3D_8x8_R50.pth   # path to a pre-trained model, if using one
@@ -16,7 +16,7 @@ backbone_config:
 # dataset
 all_dataset: [FaceForensics++, FF-F2F, FF-DF, FF-FS, FF-NT, FaceShifter, DeepFakeDetection, Celeb-DF-v1, Celeb-DF-v2, DFDCP, DFDC, DeeperForensics-1.0, UADFV]
 train_dataset: [FaceForensics++]
-test_dataset: [Celeb-DF-v2]
+test_dataset: [Celeb-DF]
 
 compression: c23  # compression-level for videos
 train_batchSize: 8   # training batch size
