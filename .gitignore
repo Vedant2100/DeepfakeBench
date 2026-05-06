@@ -11,3 +11,4 @@ slurm_bash/
 mlruns/
 logs/
 archive/
+experiments/
