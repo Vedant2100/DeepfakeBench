@@ -273,11 +273,12 @@ class DeepfakeAbstractBaseDataset(data.Dataset):
                     video_name_list.extend([unique_video_name] * len(frame_paths))
             
         # Shuffle the label and frame path lists in the same order
-        shuffled = list(zip(label_list, frame_path_list, video_name_list))
-        random.shuffle(shuffled)
-        label_list, frame_path_list, video_name_list = zip(*shuffled)
+        if len(label_list) > 0:
+            shuffled = list(zip(label_list, frame_path_list, video_name_list))
+            random.shuffle(shuffled)
+            label_list, frame_path_list, video_name_list = zip(*shuffled)
         
-        return frame_path_list, label_list, video_name_list
+        return list(frame_path_list), list(label_list), list(video_name_list)
 
      
     def load_rgb(self, file_path):
@@ -296,7 +297,7 @@ class DeepfakeAbstractBaseDataset(data.Dataset):
         size = self.config['resolution'] # if self.mode == "train" else self.config['resolution']
         if not self.lmdb:
             if not file_path[0] == '.':
-                file_path =  f'./{self.config["rgb_dir"]}\\'+file_path
+                file_path = os.path.join(self.config["rgb_dir"], file_path)
             assert os.path.exists(file_path), f"{file_path} does not exist"
             img = cv2.imread(file_path)
             if img is None:
@@ -333,7 +334,7 @@ class DeepfakeAbstractBaseDataset(data.Dataset):
             return np.zeros((size, size, 1))
         if not self.lmdb:
             if not file_path[0] == '.':
-                file_path =  f'./{self.config["rgb_dir"]}\\'+file_path
+                file_path = os.path.join(self.config["rgb_dir"], file_path)
             if os.path.exists(file_path):
                 mask = cv2.imread(file_path, 0)
                 if mask is None:
@@ -374,7 +375,7 @@ class DeepfakeAbstractBaseDataset(data.Dataset):
             return np.zeros((81, 2))
         if not self.lmdb:
             if not file_path[0] == '.':
-                file_path =  f'./{self.config["rgb_dir"]}\\'+file_path
+                file_path = os.path.join(self.config["rgb_dir"], file_path)
             if os.path.exists(file_path):
                 landmark = np.load(file_path)
             else:
@@ -477,6 +478,9 @@ class DeepfakeAbstractBaseDataset(data.Dataset):
         augmentation_seed = None
 
         for image_path in image_paths:
+            # Fix Windows paths from the JSON files
+            image_path = image_path.replace('\\', '/')
+            
             # Initialize a new seed for data augmentation at the start of each video
             if self.video_level and image_path == image_paths[0]:
                 augmentation_seed = random.randint(0, 2**32 - 1)

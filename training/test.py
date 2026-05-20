@@ -182,6 +182,9 @@ def main():
         except:
             epoch = 0
         ckpt = torch.load(weights_path, map_location=device)
+        # Fix for weights saved with DataParallel ('module.' prefix)
+        if all(k.startswith('module.') for k in ckpt.keys()):
+            ckpt = {k.replace('module.', ''): v for k, v in ckpt.items()}
         model.load_state_dict(ckpt, strict=True)
         print('===> Load checkpoint done!')
     else:
