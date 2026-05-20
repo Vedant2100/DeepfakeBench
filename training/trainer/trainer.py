@@ -16,6 +16,7 @@ import logging
 import numpy as np
 from copy import deepcopy
 from collections import defaultdict
+import mlflow
 from tqdm import tqdm
 import time
 import torch
@@ -240,8 +241,8 @@ class Trainer(object):
             self.setTrain()
             # more elegant and more scalable way of moving data to GPU
             for key in data_dict.keys():
-                if data_dict[key]!=None and key!='name':
-                    data_dict[key]=data_dict[key].cuda()
+                if hasattr(data_dict[key], 'cuda'):
+                    data_dict[key] = data_dict[key].cuda()
 
             losses,predictions=self.train_step(data_dict)
 
@@ -279,6 +280,7 @@ class Trainer(object):
                     # tensorboard-1. loss
                     writer = self.get_writer('train', ','.join(self.config['train_dataset']), k)
                     writer.add_scalar(f'train_loss/{k}', v_avg, global_step=step_cnt)
+                    mlflow.log_metric(f'train_loss/{k}', v_avg, step=step_cnt)
                 self.logger.info(loss_str)
                 # info for metric
                 metric_str = f"Iter: {step_cnt}    "
@@ -291,6 +293,7 @@ class Trainer(object):
                     # tensorboard-2. metric
                     writer = self.get_writer('train', ','.join(self.config['train_dataset']), k)
                     writer.add_scalar(f'train_metric/{k}', v_avg, global_step=step_cnt)
+                    mlflow.log_metric(f'train_metric/{k}', v_avg, step=step_cnt)
                 self.logger.info(metric_str)
 
 
@@ -399,6 +402,7 @@ class Trainer(object):
                     continue
                 # tensorboard-1. loss
                 writer.add_scalar(f'test_losses/{k}', v_avg, global_step=step)
+                mlflow.log_metric(f'test_loss_{key}/{k}', v_avg, step=step)
                 loss_str += f"testing-loss, {k}: {v_avg}    "
             self.logger.info(loss_str)
         # tqdm.write(loss_str)
@@ -410,11 +414,14 @@ class Trainer(object):
             # tensorboard-2. metric
             writer = self.get_writer('test', key, k)
             writer.add_scalar(f'test_metrics/{k}', v, global_step=step)
+            mlflow.log_metric(f'test_metric_{key}/{k}', v, step=step)
         if 'pred' in metric_one_dataset:
             acc_real, acc_fake = self.get_respect_acc(metric_one_dataset['pred'], metric_one_dataset['label'])
             metric_str += f'testing-metric, acc_real:{acc_real}; acc_fake:{acc_fake}'
             writer.add_scalar(f'test_metrics/acc_real', acc_real, global_step=step)
             writer.add_scalar(f'test_metrics/acc_fake', acc_fake, global_step=step)
+            mlflow.log_metric(f'test_metric_{key}/acc_real', acc_real, step=step)
+            mlflow.log_metric(f'test_metric_{key}/acc_fake', acc_fake, step=step)
         self.logger.info(metric_str)
     def test_epoch(self, epoch, iteration, test_data_loaders, step):
         # set model to eval mode

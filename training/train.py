@@ -34,6 +34,7 @@ from detectors import DETECTOR
 from dataset import *
 from metrics.utils import parse_metric_for_print
 from logger import create_logger, RankFilter
+import mlflow
 
 parser = argparse.ArgumentParser(description='Process some paths.')
 parser.add_argument('--detector_path', type=str,
@@ -300,6 +301,26 @@ def main():
     if args.continue_weight:
         trainer.load_ckpt(args.continue_weight)
 
+    # Initialize MLflow dynamically based on the detector config directory
+    exp_dir = os.path.dirname(args.detector_path)
+    mlflow_dir = os.path.abspath(os.path.join(exp_dir, 'mlruns'))
+    experiment_name = os.path.basename(exp_dir)
+    
+    mlflow.set_tracking_uri(f"file://{mlflow_dir}")
+    mlflow.set_experiment(experiment_name)
+    
+    # Start MLflow run
+    run_name = config['model_name'] + task_str + '_' + timenow
+    mlflow.start_run(run_name=run_name)
+    
+    # Log config parameters
+    for k, v in config.items():
+        # MLflow params must be strings or numbers
+        if isinstance(v, (str, int, float, bool)):
+            mlflow.log_param(k, v)
+        elif isinstance(v, list):
+            mlflow.log_param(k, str(v))
+
     # start training
     for epoch in range(config['start_epoch'], config['nEpochs'] + 1):
         trainer.model.epoch = epoch
@@ -320,6 +341,8 @@ def main():
     # close the tensorboard writers
     for writer in trainer.writers.values():
         writer.close()
+        
+    mlflow.end_run()
 
 
 
