@@ -35,7 +35,6 @@ from dataset import *
 from metrics.utils import parse_metric_for_print
 from logger import create_logger, RankFilter
 
-
 parser = argparse.ArgumentParser(description='Process some paths.')
 parser.add_argument('--detector_path', type=str,
                     default='/data/home/zhiyuanyan/DeepfakeBenchv2/training/config/detector/sbi.yaml',
@@ -47,6 +46,7 @@ parser.add_argument('--no-save_feat', dest='save_feat', action='store_false', de
 parser.add_argument("--ddp", action='store_true', default=False)
 parser.add_argument('--local_rank', type=int, default=0)
 parser.add_argument('--task_target', type=str, default="", help='specify the target of current training task')
+parser.add_argument('--continue_weight', type=str, default=None, help='path to the weights to continue training from')
 args = parser.parse_args()
 torch.cuda.set_device(args.local_rank)
 
@@ -229,7 +229,8 @@ def main():
         config2 = yaml.safe_load(f)
     if 'label_dict' in config:
         config2['label_dict']=config['label_dict']
-    config.update(config2)
+    config2.update(config)
+    config = config2
     config['local_rank']=args.local_rank
     if config['dry_run']:
         config['nEpochs'] = 0
@@ -295,6 +296,9 @@ def main():
 
     # prepare the trainer
     trainer = Trainer(config, model, optimizer, scheduler, logger, metric_scoring, time_now=timenow)
+
+    if args.continue_weight:
+        trainer.load_ckpt(args.continue_weight)
 
     # start training
     for epoch in range(config['start_epoch'], config['nEpochs'] + 1):
