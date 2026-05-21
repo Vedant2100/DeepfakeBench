@@ -24,7 +24,7 @@ echo "========================================================"
 python training/train.py --detector_path training/config/detector/ffpp_train.yaml --task_target CL_FFPP
 
 LATEST_FFPP_LOG=$(ls -td logs/training/effort_CL_FFPP_* | head -1)
-CKPT_FFPP="$LATEST_FFPP_LOG/test/FaceForensics++/ckpt_best.pth"
+CKPT_FFPP="$LATEST_FFPP_LOG/test/avg/ckpt_best.pth"
 
 if [ ! -f "$CKPT_FFPP" ]; then
     echo "Error: Checkpoint $CKPT_FFPP not found!"
@@ -39,7 +39,7 @@ echo "========================================================"
 python training/train.py --detector_path training/config/detector/celebdf_train.yaml --task_target CL_CelebDF --continue_weight "$CKPT_FFPP"
 
 LATEST_CELEBDF_LOG=$(ls -td logs/training/effort_CL_CelebDF_* | head -1)
-CKPT_CELEBDF="$LATEST_CELEBDF_LOG/test/Celeb-DF-v1/ckpt_best.pth"
+CKPT_CELEBDF="$LATEST_CELEBDF_LOG/test/avg/ckpt_best.pth"
 
 if [ ! -f "$CKPT_CELEBDF" ]; then
     echo "Error: Checkpoint $CKPT_CELEBDF not found!"

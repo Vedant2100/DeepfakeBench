@@ -247,7 +247,7 @@ def main():
         config['dataset_json_folder'] = 'preprocessing/dataset_json_v3'
     # create logger
     timenow=datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
-    task_str = f"_{config['task_target']}" if config.get('task_target', None) is not None else ""
+    task_str = f"_{config['task_target']}" if config.get('task_target') else ""
     logger_path =  os.path.join(
                 config['log_dir'],
                 config['model_name'] + task_str + '_' + timenow
