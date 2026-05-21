@@ -243,6 +243,8 @@ def main():
         config['test_dataset'] = args.test_dataset
     config['save_ckpt'] = args.save_ckpt
     config['save_feat'] = args.save_feat
+    if args.task_target:
+        config['task_target'] = args.task_target
     if config['lmdb']:
         config['dataset_json_folder'] = 'preprocessing/dataset_json_v3'
     # create logger
