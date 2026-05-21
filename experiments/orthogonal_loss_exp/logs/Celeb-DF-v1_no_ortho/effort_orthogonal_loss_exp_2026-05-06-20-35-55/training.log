@@ -1,0 +1,358 @@
+2026-05-06 20:35:55,008 - INFO - Save log to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55
+2026-05-06 20:35:55,008 - INFO - --------------- Configuration ---------------
+2026-05-06 20:35:55,008 - INFO - Parameters: 
+mode: train
+lmdb: False
+dry_run: False
+rgb_dir: ./datasets
+lmdb_dir: ./datasets/lmdb
+dataset_json_folder: ./preprocessing/dataset_json
+SWA: False
+save_avg: True
+log_dir: experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho
+label_dict: {'DFD_fake': 1, 'DFD_real': 0, 'FF-SH': 1, 'FF-F2F': 1, 'FF-DF': 1, 'FF-FS': 1, 'FF-NT': 1, 'FF-FH': 1, 'FF-real': 0, 'CelebDFv1_real': 0, 'CelebDFv1_fake': 1, 'CelebDFv2_real': 0, 'CelebDFv2_fake': 1, 'DFDCP_Real': 0, 'DFDCP_FakeA': 1, 'DFDCP_FakeB': 1, 'DFDC_Fake': 1, 'DFDC_Real': 0, 'DF_fake': 1, 'DF_real': 0, 'UADFV_Fake': 1, 'UADFV_Real': 0, 'roop_Real': 0, 'roop_Fake': 1}
+pretrained: no need to provide this for the effort model
+model_name: effort_orthogonal_loss_exp
+backbone_name: vit
+backbone_config: {'mode': 'original', 'num_classes': 2, 'inc': 3, 'dropout': False}
+all_dataset: ['FaceForensics++', 'FF-F2F', 'FF-DF', 'FF-FS', 'FF-NT', 'FaceShifter', 'DeepFakeDetection', 'Celeb-DF-v1', 'Celeb-DF-v2', 'DFDCP', 'DFDC', 'DeeperForensics-1.0', 'UADFV']
+train_dataset: ['Celeb-DF-v1']
+test_dataset: ['Celeb-DF-v1']
+compression: c23
+train_batchSize: 32
+test_batchSize: 32
+workers: 8
+frame_num: {'train': 8, 'test': 8}
+resolution: 224
+with_mask: False
+with_landmark: False
+use_data_augmentation: True
+data_aug: {'flip_prob': 0.5, 'rotate_prob': 0.5, 'rotate_limit': [-10, 10], 'blur_prob': 0.5, 'blur_limit': [3, 7], 'brightness_prob': 0.5, 'brightness_limit': [-0.1, 0.1], 'contrast_limit': [-0.1, 0.1], 'quality_lower': 40, 'quality_upper': 100}
+mean: [0.48145466, 0.4578275, 0.40821073]
+std: [0.26862954, 0.26130258, 0.27577711]
+optimizer: {'type': 'adam', 'adam': {'lr': 0.0002, 'beta1': 0.9, 'beta2': 0.999, 'eps': 1e-08, 'weight_decay': 0.0005, 'amsgrad': False}, 'sgd': {'lr': 0.0002, 'momentum': 0.9, 'weight_decay': 0.0005}}
+lr_scheduler: None
+nEpochs: 10
+start_epoch: 0
+save_epoch: 1
+rec_iter: 100
+logdir: ./logs
+manualSeed: 1024
+save_ckpt: True
+save_feat: True
+loss_func: cross_entropy
+losstype: None
+metric_scoring: auc
+ngpu: 1
+cuda: True
+cudnn: True
+with_orthogonal_loss: False
+local_rank: 0
+ddp: False
+
+2026-05-06 20:36:12,962 - INFO - ===> Epoch[0] start!
+2026-05-06 20:36:12,966 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/train/Celeb-DF-v1/data_dict_train.pickle
+2026-05-06 20:36:42,614 - INFO - Iter: 0    training-loss, overall: 0.641497015953064    training-loss, real_loss: 1.034071922302246    training-loss, fake_loss: 0.4358624815940857    
+2026-05-06 20:36:42,626 - INFO - Iter: 0    training-metric, acc: 0.59375    training-metric, auc: 0.5497835497835498    training-metric, eer: 0.45454545454545453    training-metric, ap: 0.7370333340735968    
+2026-05-06 20:39:51,115 - INFO - ===> Test start!
+2026-05-06 20:39:51,118 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/data_dict_test.pickle
+2026-05-06 20:41:02,939 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/ckpt_best.pth, current ckpt is 0+261
+2026-05-06 20:41:02,940 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/metric_dict_best.pickle
+2026-05-06 20:41:02,945 - INFO - dataset: Celeb-DF-v1    step: 261    testing-loss, overall: 0.30777713656425476    testing-loss, real_loss: 0.7043766379356384    testing-loss, fake_loss: 0.047351520508527756    
+2026-05-06 20:41:02,952 - INFO - dataset: Celeb-DF-v1    step: 261    testing-metric, acc: 0.905    testing-metric, auc: 0.9429780348047538    testing-metric, eer: 0.13486842105263158    testing-metric, ap: 0.9574398682655778    testing-metric, video_auc: 0.9443972835314092    testing-metric, acc_real:0.75; acc_fake:1.0
+2026-05-06 20:41:05,079 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/avg/ckpt_best.pth, current ckpt is 0+261
+2026-05-06 20:41:05,080 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/avg/metric_dict_best.pickle
+2026-05-06 20:41:05,117 - INFO - dataset: avg    step: 261    testing-metric, acc: 0.905    testing-metric, auc: 0.9429780348047538    testing-metric, eer: 0.13486842105263158    testing-metric, ap: 0.9574398682655778    testing-metric, video_auc: 0.9443972835314092    
+2026-05-06 20:41:05,117 - INFO - ===> Test Done!
+2026-05-06 20:41:23,719 - INFO - ===> Epoch[0] end with testing auc: 
+================================ Each dataset best metric ================================ 
+| Celeb-DF-v1:  auc=0.9429780348047538 | 
+============================================================================================= 
+================================== Average best metric ====================================== 
+| avg auc: 0.9429780348047538 | 
+| Celeb-DF-v1: 0.9429780348047538 | 
+=============================================================================================!
+2026-05-06 20:41:23,870 - INFO - ===> Epoch[1] start!
+2026-05-06 20:41:23,874 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/train/Celeb-DF-v1/data_dict_train.pickle
+2026-05-06 20:42:16,326 - INFO - Iter: 262    training-loss, overall: 0.09189004451036453    training-loss, real_loss: 0.08040615171194077    training-loss, fake_loss: 0.09510554373264313    
+2026-05-06 20:42:16,326 - INFO - Iter: 262    training-metric, acc: 1.0    training-metric, auc: 1.0    training-metric, eer: 0.0    training-metric, ap: 1.0    
+2026-05-06 20:43:39,099 - INFO - ===> Test start!
+2026-05-06 20:43:39,102 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/data_dict_test.pickle
+2026-05-06 20:44:39,302 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/ckpt_best.pth, current ckpt is 1+130
+2026-05-06 20:44:39,303 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/metric_dict_best.pickle
+2026-05-06 20:44:39,304 - INFO - dataset: Celeb-DF-v1    step: 392    testing-loss, overall: 0.2743605077266693    testing-loss, real_loss: 0.6624652743339539    testing-loss, fake_loss: 0.018559055402874947    
+2026-05-06 20:44:39,304 - INFO - dataset: Celeb-DF-v1    step: 392    testing-metric, acc: 0.92125    testing-metric, auc: 0.9653278862478778    testing-metric, eer: 0.11513157894736842    testing-metric, ap: 0.9760322037961383    testing-metric, video_auc: 0.9664685908319185    testing-metric, acc_real:0.7927631578947368; acc_fake:1.0
+2026-05-06 20:44:41,567 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/avg/ckpt_best.pth, current ckpt is 1+130
+2026-05-06 20:44:41,568 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/avg/metric_dict_best.pickle
+2026-05-06 20:44:41,568 - INFO - dataset: avg    step: 392    testing-metric, acc: 0.92125    testing-metric, auc: 0.9653278862478778    testing-metric, eer: 0.11513157894736842    testing-metric, ap: 0.9760322037961383    testing-metric, video_auc: 0.9664685908319185    
+2026-05-06 20:44:41,568 - INFO - ===> Test Done!
+2026-05-06 20:46:05,325 - INFO - ===> Test start!
+2026-05-06 20:46:05,327 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/data_dict_test.pickle
+2026-05-06 20:46:58,643 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/ckpt_best.pth, current ckpt is 1+261
+2026-05-06 20:46:58,644 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/metric_dict_best.pickle
+2026-05-06 20:46:58,645 - INFO - dataset: Celeb-DF-v1    step: 523    testing-loss, overall: 0.3150579631328583    testing-loss, real_loss: 0.790450930595398    testing-loss, fake_loss: 0.0036717380862683058    
+2026-05-06 20:46:58,646 - INFO - dataset: Celeb-DF-v1    step: 523    testing-metric, acc: 0.9275    testing-metric, auc: 0.9799614017402377    testing-metric, eer: 0.09210526315789473    testing-metric, ap: 0.9869217730575679    testing-metric, video_auc: 0.9800509337860781    testing-metric, acc_real:0.8092105263157895; acc_fake:1.0
+2026-05-06 20:47:00,798 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/avg/ckpt_best.pth, current ckpt is 1+261
+2026-05-06 20:47:00,799 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/avg/metric_dict_best.pickle
+2026-05-06 20:47:00,800 - INFO - dataset: avg    step: 523    testing-metric, acc: 0.9275    testing-metric, auc: 0.9799614017402377    testing-metric, eer: 0.09210526315789473    testing-metric, ap: 0.9869217730575679    testing-metric, video_auc: 0.9800509337860781    
+2026-05-06 20:47:00,800 - INFO - ===> Test Done!
+2026-05-06 20:47:19,107 - INFO - ===> Epoch[1] end with testing auc: 
+================================ Each dataset best metric ================================ 
+| Celeb-DF-v1:  auc=0.9799614017402377 | 
+============================================================================================= 
+================================== Average best metric ====================================== 
+| avg auc: 0.9799614017402377 | 
+| Celeb-DF-v1: 0.9799614017402377 | 
+=============================================================================================!
+2026-05-06 20:47:19,222 - INFO - ===> Epoch[2] start!
+2026-05-06 20:47:19,227 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/train/Celeb-DF-v1/data_dict_train.pickle
+2026-05-06 20:48:17,118 - INFO - Iter: 524    training-loss, overall: 0.0035598198883235455    training-loss, real_loss: 0.011752358637750149    training-loss, fake_loss: 0.0023894570767879486    
+2026-05-06 20:48:17,119 - INFO - Iter: 524    training-metric, acc: 1.0    training-metric, auc: 1.0    training-metric, eer: 0.0    training-metric, ap: 0.9999999999999999    
+2026-05-06 20:49:40,002 - INFO - ===> Test start!
+2026-05-06 20:49:40,005 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/data_dict_test.pickle
+2026-05-06 20:50:56,744 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/ckpt_best.pth, current ckpt is 2+130
+2026-05-06 20:50:56,746 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/metric_dict_best.pickle
+2026-05-06 20:50:56,747 - INFO - dataset: Celeb-DF-v1    step: 654    testing-loss, overall: 0.31584301590919495    testing-loss, real_loss: 0.7957485318183899    testing-loss, fake_loss: 0.0027721168007701635    
+2026-05-06 20:50:56,747 - INFO - dataset: Celeb-DF-v1    step: 654    testing-metric, acc: 0.92875    testing-metric, auc: 0.9828629032258065    testing-metric, eer: 0.09210526315789473    testing-metric, ap: 0.9889782576825973    testing-metric, video_auc: 0.9834465195246179    testing-metric, acc_real:0.8125; acc_fake:1.0
+2026-05-06 20:50:58,922 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/avg/ckpt_best.pth, current ckpt is 2+130
+2026-05-06 20:50:58,924 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/avg/metric_dict_best.pickle
+2026-05-06 20:50:58,924 - INFO - dataset: avg    step: 654    testing-metric, acc: 0.92875    testing-metric, auc: 0.9828629032258065    testing-metric, eer: 0.09210526315789473    testing-metric, ap: 0.9889782576825973    testing-metric, video_auc: 0.9834465195246179    
+2026-05-06 20:50:58,924 - INFO - ===> Test Done!
+2026-05-06 20:52:22,728 - INFO - ===> Test start!
+2026-05-06 20:52:22,730 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/data_dict_test.pickle
+2026-05-06 20:53:37,033 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/ckpt_best.pth, current ckpt is 2+261
+2026-05-06 20:53:37,035 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/metric_dict_best.pickle
+2026-05-06 20:53:37,036 - INFO - dataset: Celeb-DF-v1    step: 785    testing-loss, overall: 0.36757585406303406    testing-loss, real_loss: 0.9340203404426575    testing-loss, fake_loss: 0.0008284355280920863    
+2026-05-06 20:53:37,036 - INFO - dataset: Celeb-DF-v1    step: 785    testing-metric, acc: 0.92875    testing-metric, auc: 0.9866033531409167    testing-metric, eer: 0.06907894736842106    testing-metric, ap: 0.9914245649529652    testing-metric, video_auc: 0.9864176570458404    testing-metric, acc_real:0.8125; acc_fake:1.0
+2026-05-06 20:53:39,200 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/avg/ckpt_best.pth, current ckpt is 2+261
+2026-05-06 20:53:39,201 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/avg/metric_dict_best.pickle
+2026-05-06 20:53:39,201 - INFO - dataset: avg    step: 785    testing-metric, acc: 0.92875    testing-metric, auc: 0.9866033531409167    testing-metric, eer: 0.06907894736842106    testing-metric, ap: 0.9914245649529652    testing-metric, video_auc: 0.9864176570458404    
+2026-05-06 20:53:39,201 - INFO - ===> Test Done!
+2026-05-06 20:53:57,869 - INFO - ===> Epoch[2] end with testing auc: 
+================================ Each dataset best metric ================================ 
+| Celeb-DF-v1:  auc=0.9866033531409167 | 
+============================================================================================= 
+================================== Average best metric ====================================== 
+| avg auc: 0.9866033531409167 | 
+| Celeb-DF-v1: 0.9866033531409167 | 
+=============================================================================================!
+2026-05-06 20:53:58,006 - INFO - ===> Epoch[3] start!
+2026-05-06 20:53:58,010 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/train/Celeb-DF-v1/data_dict_train.pickle
+2026-05-06 20:54:37,238 - INFO - Iter: 786    training-loss, overall: 0.00374402548186481    training-loss, real_loss: 0.009021849371492863    training-loss, fake_loss: 0.0022662347182631493    
+2026-05-06 20:54:37,238 - INFO - Iter: 786    training-metric, acc: 1.0    training-metric, auc: 1.0    training-metric, eer: 0.0    training-metric, ap: 1.0    
+2026-05-06 20:56:00,478 - INFO - ===> Test start!
+2026-05-06 20:56:00,481 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/data_dict_test.pickle
+2026-05-06 20:57:00,979 - INFO - dataset: Celeb-DF-v1    step: 916    testing-loss, overall: 0.3949934244155884    testing-loss, real_loss: 1.0032336711883545    testing-loss, fake_loss: 0.0006901088054291904    
+2026-05-06 20:57:00,980 - INFO - dataset: Celeb-DF-v1    step: 916    testing-metric, acc: 0.92875    testing-metric, auc: 0.985512388582343    testing-metric, eer: 0.07236842105263158    testing-metric, ap: 0.9906909522284278    testing-metric, video_auc: 0.984295415959253    testing-metric, acc_real:0.8125; acc_fake:1.0
+2026-05-06 20:57:00,980 - INFO - dataset: avg    step: 916    testing-metric, acc: 0.92875    testing-metric, auc: 0.985512388582343    testing-metric, eer: 0.07236842105263158    testing-metric, ap: 0.9906909522284278    testing-metric, video_auc: 0.984295415959253    
+2026-05-06 20:57:00,980 - INFO - ===> Test Done!
+2026-05-06 20:58:25,702 - INFO - ===> Test start!
+2026-05-06 20:58:25,705 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/data_dict_test.pickle
+2026-05-06 20:59:28,272 - INFO - dataset: Celeb-DF-v1    step: 1047    testing-loss, overall: 0.3538655638694763    testing-loss, real_loss: 0.8951196670532227    testing-loss, fake_loss: 0.0016684854635968804    
+2026-05-06 20:59:28,273 - INFO - dataset: Celeb-DF-v1    step: 1047    testing-metric, acc: 0.92875    testing-metric, auc: 0.9822394949066213    testing-metric, eer: 0.08881578947368421    testing-metric, ap: 0.9884647147036517    testing-metric, video_auc: 0.9817487266553481    testing-metric, acc_real:0.8125; acc_fake:1.0
+2026-05-06 20:59:28,273 - INFO - dataset: avg    step: 1047    testing-metric, acc: 0.92875    testing-metric, auc: 0.9822394949066213    testing-metric, eer: 0.08881578947368421    testing-metric, ap: 0.9884647147036517    testing-metric, video_auc: 0.9817487266553481    
+2026-05-06 20:59:28,273 - INFO - ===> Test Done!
+2026-05-06 20:59:47,692 - INFO - ===> Epoch[3] end with testing auc: 
+================================ Each dataset best metric ================================ 
+| Celeb-DF-v1:  auc=0.9866033531409167 | 
+============================================================================================= 
+================================== Average best metric ====================================== 
+| avg auc: 0.9866033531409167 | 
+| Celeb-DF-v1: 0.9866033531409167 | 
+=============================================================================================!
+2026-05-06 20:59:47,804 - INFO - ===> Epoch[4] start!
+2026-05-06 20:59:47,810 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/train/Celeb-DF-v1/data_dict_train.pickle
+2026-05-06 21:00:39,470 - INFO - Iter: 1048    training-loss, overall: 0.0023694897536188364    training-loss, real_loss: 0.00758525962010026    training-loss, fake_loss: 0.0011658499715849757    
+2026-05-06 21:00:39,471 - INFO - Iter: 1048    training-metric, acc: 1.0    training-metric, auc: 1.0    training-metric, eer: 0.0    training-metric, ap: 1.0    
+2026-05-06 21:02:04,402 - INFO - ===> Test start!
+2026-05-06 21:02:04,405 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/data_dict_test.pickle
+2026-05-06 21:03:07,848 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/ckpt_best.pth, current ckpt is 4+130
+2026-05-06 21:03:07,849 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/metric_dict_best.pickle
+2026-05-06 21:03:07,850 - INFO - dataset: Celeb-DF-v1    step: 1178    testing-loss, overall: 0.41891419887542725    testing-loss, real_loss: 1.0634539127349854    testing-loss, fake_loss: 0.00030219517066143453    
+2026-05-06 21:03:07,851 - INFO - dataset: Celeb-DF-v1    step: 1178    testing-metric, acc: 0.925    testing-metric, auc: 0.9871803374363327    testing-metric, eer: 0.06578947368421052    testing-metric, ap: 0.9917342169569925    testing-metric, video_auc: 0.9872665534804753    testing-metric, acc_real:0.8026315789473685; acc_fake:1.0
+2026-05-06 21:03:10,204 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/avg/ckpt_best.pth, current ckpt is 4+130
+2026-05-06 21:03:10,205 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/avg/metric_dict_best.pickle
+2026-05-06 21:03:10,206 - INFO - dataset: avg    step: 1178    testing-metric, acc: 0.925    testing-metric, auc: 0.9871803374363327    testing-metric, eer: 0.06578947368421052    testing-metric, ap: 0.9917342169569925    testing-metric, video_auc: 0.9872665534804753    
+2026-05-06 21:03:10,206 - INFO - ===> Test Done!
+2026-05-06 21:04:34,785 - INFO - ===> Test start!
+2026-05-06 21:04:34,788 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/data_dict_test.pickle
+2026-05-06 21:05:43,836 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/ckpt_best.pth, current ckpt is 4+261
+2026-05-06 21:05:43,837 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/metric_dict_best.pickle
+2026-05-06 21:05:43,838 - INFO - dataset: Celeb-DF-v1    step: 1309    testing-loss, overall: 0.44867101311683655    testing-loss, real_loss: 1.1423052549362183    testing-loss, fake_loss: 0.000379018543753773    
+2026-05-06 21:05:43,838 - INFO - dataset: Celeb-DF-v1    step: 1309    testing-metric, acc: 0.92875    testing-metric, auc: 0.9875583616298812    testing-metric, eer: 0.0756578947368421    testing-metric, ap: 0.9922127102455843    testing-metric, video_auc: 0.9889643463497453    testing-metric, acc_real:0.8125; acc_fake:1.0
+2026-05-06 21:05:46,011 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/avg/ckpt_best.pth, current ckpt is 4+261
+2026-05-06 21:05:46,012 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/avg/metric_dict_best.pickle
+2026-05-06 21:05:46,013 - INFO - dataset: avg    step: 1309    testing-metric, acc: 0.92875    testing-metric, auc: 0.9875583616298812    testing-metric, eer: 0.0756578947368421    testing-metric, ap: 0.9922127102455843    testing-metric, video_auc: 0.9889643463497453    
+2026-05-06 21:05:46,013 - INFO - ===> Test Done!
+2026-05-06 21:06:05,946 - INFO - ===> Epoch[4] end with testing auc: 
+================================ Each dataset best metric ================================ 
+| Celeb-DF-v1:  auc=0.9875583616298812 | 
+============================================================================================= 
+================================== Average best metric ====================================== 
+| avg auc: 0.9875583616298812 | 
+| Celeb-DF-v1: 0.9875583616298812 | 
+=============================================================================================!
+2026-05-06 21:06:06,060 - INFO - ===> Epoch[5] start!
+2026-05-06 21:06:06,066 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/train/Celeb-DF-v1/data_dict_train.pickle
+2026-05-06 21:06:49,115 - INFO - Iter: 1310    training-loss, overall: 0.000475144071970135    training-loss, real_loss: 0.0011695330031216145    training-loss, fake_loss: 5.851070091011934e-05    
+2026-05-06 21:06:49,116 - INFO - Iter: 1310    training-metric, acc: 1.0    training-metric, auc: 1.0    training-metric, eer: 0.0    training-metric, ap: 1.0    
+2026-05-06 21:08:29,259 - INFO - ===> Test start!
+2026-05-06 21:08:29,262 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/data_dict_test.pickle
+2026-05-06 21:09:33,790 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/ckpt_best.pth, current ckpt is 5+130
+2026-05-06 21:09:33,791 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/metric_dict_best.pickle
+2026-05-06 21:09:33,792 - INFO - dataset: Celeb-DF-v1    step: 1440    testing-loss, overall: 0.3899374306201935    testing-loss, real_loss: 0.9919284582138062    testing-loss, fake_loss: 0.0006353901117108762    
+2026-05-06 21:09:33,793 - INFO - dataset: Celeb-DF-v1    step: 1440    testing-metric, acc: 0.9275    testing-metric, auc: 0.9880325498726655    testing-metric, eer: 0.05921052631578947    testing-metric, ap: 0.9924290883929443    testing-metric, video_auc: 0.9893887945670627    testing-metric, acc_real:0.8092105263157895; acc_fake:1.0
+2026-05-06 21:09:36,052 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/avg/ckpt_best.pth, current ckpt is 5+130
+2026-05-06 21:09:36,053 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/avg/metric_dict_best.pickle
+2026-05-06 21:09:36,053 - INFO - dataset: avg    step: 1440    testing-metric, acc: 0.9275    testing-metric, auc: 0.9880325498726655    testing-metric, eer: 0.05921052631578947    testing-metric, ap: 0.9924290883929443    testing-metric, video_auc: 0.9893887945670627    
+2026-05-06 21:09:36,053 - INFO - ===> Test Done!
+2026-05-06 21:11:00,086 - INFO - ===> Test start!
+2026-05-06 21:11:00,089 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/data_dict_test.pickle
+2026-05-06 21:11:58,015 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/ckpt_best.pth, current ckpt is 5+261
+2026-05-06 21:11:58,016 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/metric_dict_best.pickle
+2026-05-06 21:11:58,017 - INFO - dataset: Celeb-DF-v1    step: 1571    testing-loss, overall: 0.4177178144454956    testing-loss, real_loss: 1.0646765232086182    testing-loss, fake_loss: 0.00027082886663265526    
+2026-05-06 21:11:58,018 - INFO - dataset: Celeb-DF-v1    step: 1571    testing-metric, acc: 0.92375    testing-metric, auc: 0.9891964664685908    testing-metric, eer: 0.05921052631578947    testing-metric, ap: 0.9931229443489726    testing-metric, video_auc: 0.9906621392190152    testing-metric, acc_real:0.7993421052631579; acc_fake:1.0
+2026-05-06 21:12:00,203 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/avg/ckpt_best.pth, current ckpt is 5+261
+2026-05-06 21:12:00,205 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/avg/metric_dict_best.pickle
+2026-05-06 21:12:00,205 - INFO - dataset: avg    step: 1571    testing-metric, acc: 0.92375    testing-metric, auc: 0.9891964664685908    testing-metric, eer: 0.05921052631578947    testing-metric, ap: 0.9931229443489726    testing-metric, video_auc: 0.9906621392190152    
+2026-05-06 21:12:00,205 - INFO - ===> Test Done!
+2026-05-06 21:12:19,920 - INFO - ===> Epoch[5] end with testing auc: 
+================================ Each dataset best metric ================================ 
+| Celeb-DF-v1:  auc=0.9891964664685908 | 
+============================================================================================= 
+================================== Average best metric ====================================== 
+| avg auc: 0.9891964664685908 | 
+| Celeb-DF-v1: 0.9891964664685908 | 
+=============================================================================================!
+2026-05-06 21:12:19,921 - INFO - ===> Epoch[6] start!
+2026-05-06 21:12:19,926 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/train/Celeb-DF-v1/data_dict_train.pickle
+2026-05-06 21:12:52,721 - INFO - Iter: 1572    training-loss, overall: 0.0010000461479648948    training-loss, real_loss: 0.002258392982184887    training-loss, fake_loss: 0.0003409118507988751    
+2026-05-06 21:12:52,722 - INFO - Iter: 1572    training-metric, acc: 1.0    training-metric, auc: 1.0    training-metric, eer: 0.0    training-metric, ap: 1.0    
+2026-05-06 21:14:27,409 - INFO - ===> Test start!
+2026-05-06 21:14:27,412 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/data_dict_test.pickle
+2026-05-06 21:15:37,844 - INFO - dataset: Celeb-DF-v1    step: 1702    testing-loss, overall: 0.33956968784332275    testing-loss, real_loss: 0.8590437173843384    testing-loss, fake_loss: 0.0017522464040666819    
+2026-05-06 21:15:37,845 - INFO - dataset: Celeb-DF-v1    step: 1702    testing-metric, acc: 0.93    testing-metric, auc: 0.9838245437181664    testing-metric, eer: 0.0756578947368421    testing-metric, ap: 0.9894665107282969    testing-metric, video_auc: 0.9821731748726655    testing-metric, acc_real:0.8157894736842105; acc_fake:1.0
+2026-05-06 21:15:37,845 - INFO - dataset: avg    step: 1702    testing-metric, acc: 0.93    testing-metric, auc: 0.9838245437181664    testing-metric, eer: 0.0756578947368421    testing-metric, ap: 0.9894665107282969    testing-metric, video_auc: 0.9821731748726655    
+2026-05-06 21:15:37,845 - INFO - ===> Test Done!
+2026-05-06 21:17:02,001 - INFO - ===> Test start!
+2026-05-06 21:17:02,004 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/data_dict_test.pickle
+2026-05-06 21:18:13,632 - INFO - dataset: Celeb-DF-v1    step: 1833    testing-loss, overall: 0.45321714878082275    testing-loss, real_loss: 1.1549263000488281    testing-loss, fake_loss: 0.00020404529641382396    
+2026-05-06 21:18:13,633 - INFO - dataset: Celeb-DF-v1    step: 1833    testing-metric, acc: 0.92375    testing-metric, auc: 0.986600037139219    testing-metric, eer: 0.06578947368421052    testing-metric, ap: 0.9913417974085214    testing-metric, video_auc: 0.9864176570458404    testing-metric, acc_real:0.7993421052631579; acc_fake:1.0
+2026-05-06 21:18:13,633 - INFO - dataset: avg    step: 1833    testing-metric, acc: 0.92375    testing-metric, auc: 0.986600037139219    testing-metric, eer: 0.06578947368421052    testing-metric, ap: 0.9913417974085214    testing-metric, video_auc: 0.9864176570458404    
+2026-05-06 21:18:13,633 - INFO - ===> Test Done!
+2026-05-06 21:18:34,106 - INFO - ===> Epoch[6] end with testing auc: 
+================================ Each dataset best metric ================================ 
+| Celeb-DF-v1:  auc=0.9891964664685908 | 
+============================================================================================= 
+================================== Average best metric ====================================== 
+| avg auc: 0.9891964664685908 | 
+| Celeb-DF-v1: 0.9891964664685908 | 
+=============================================================================================!
+2026-05-06 21:18:34,108 - INFO - ===> Epoch[7] start!
+2026-05-06 21:18:34,113 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/train/Celeb-DF-v1/data_dict_train.pickle
+2026-05-06 21:19:20,305 - INFO - Iter: 1834    training-loss, overall: 0.00020732150005642325    training-loss, real_loss: 0.0007781199528835714    training-loss, fake_loss: 4.749791696667671e-05    
+2026-05-06 21:19:20,305 - INFO - Iter: 1834    training-metric, acc: 1.0    training-metric, auc: 1.0    training-metric, eer: 0.0    training-metric, ap: 1.0    
+2026-05-06 21:21:04,923 - INFO - ===> Test start!
+2026-05-06 21:21:04,926 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/data_dict_test.pickle
+2026-05-06 21:22:18,549 - INFO - dataset: Celeb-DF-v1    step: 1964    testing-loss, overall: 0.39912012219429016    testing-loss, real_loss: 1.011952519416809    testing-loss, fake_loss: 0.0006077819271013141    
+2026-05-06 21:22:18,549 - INFO - dataset: Celeb-DF-v1    step: 1964    testing-metric, acc: 0.9275    testing-metric, auc: 0.9838577037351444    testing-metric, eer: 0.07894736842105263    testing-metric, ap: 0.9895360342433904    testing-metric, video_auc: 0.9838709677419355    testing-metric, acc_real:0.8092105263157895; acc_fake:1.0
+2026-05-06 21:22:18,550 - INFO - dataset: avg    step: 1964    testing-metric, acc: 0.9275    testing-metric, auc: 0.9838577037351444    testing-metric, eer: 0.07894736842105263    testing-metric, ap: 0.9895360342433904    testing-metric, video_auc: 0.9838709677419355    
+2026-05-06 21:22:18,550 - INFO - ===> Test Done!
+2026-05-06 21:23:43,317 - INFO - ===> Test start!
+2026-05-06 21:23:43,319 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/data_dict_test.pickle
+2026-05-06 21:24:35,782 - INFO - dataset: Celeb-DF-v1    step: 2095    testing-loss, overall: 0.4742791950702667    testing-loss, real_loss: 1.207484245300293    testing-loss, fake_loss: 0.0005087393219582736    
+2026-05-06 21:24:35,783 - INFO - dataset: Celeb-DF-v1    step: 2095    testing-metric, acc: 0.925    testing-metric, auc: 0.9821267508488963    testing-metric, eer: 0.0756578947368421    testing-metric, ap: 0.9883369729613571    testing-metric, video_auc: 0.9804753820033956    testing-metric, acc_real:0.8026315789473685; acc_fake:1.0
+2026-05-06 21:24:35,783 - INFO - dataset: avg    step: 2095    testing-metric, acc: 0.925    testing-metric, auc: 0.9821267508488963    testing-metric, eer: 0.0756578947368421    testing-metric, ap: 0.9883369729613571    testing-metric, video_auc: 0.9804753820033956    
+2026-05-06 21:24:35,783 - INFO - ===> Test Done!
+2026-05-06 21:24:56,059 - INFO - ===> Epoch[7] end with testing auc: 
+================================ Each dataset best metric ================================ 
+| Celeb-DF-v1:  auc=0.9891964664685908 | 
+============================================================================================= 
+================================== Average best metric ====================================== 
+| avg auc: 0.9891964664685908 | 
+| Celeb-DF-v1: 0.9891964664685908 | 
+=============================================================================================!
+2026-05-06 21:24:56,060 - INFO - ===> Epoch[8] start!
+2026-05-06 21:24:56,068 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/train/Celeb-DF-v1/data_dict_train.pickle
+2026-05-06 21:25:17,718 - INFO - Iter: 2096    training-loss, overall: 0.003401447320356965    training-loss, real_loss: 0.02150861732661724    training-loss, fake_loss: 4.8267655074596405e-05    
+2026-05-06 21:25:17,721 - INFO - Iter: 2096    training-metric, acc: 1.0    training-metric, auc: 1.0    training-metric, eer: 0.0    training-metric, ap: 1.0    
+2026-05-06 21:26:47,432 - INFO - ===> Test start!
+2026-05-06 21:26:47,435 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/data_dict_test.pickle
+2026-05-06 21:27:53,079 - INFO - dataset: Celeb-DF-v1    step: 2226    testing-loss, overall: 0.393833190202713    testing-loss, real_loss: 0.9992451071739197    testing-loss, fake_loss: 0.0008268615929409862    
+2026-05-06 21:27:53,080 - INFO - dataset: Celeb-DF-v1    step: 2226    testing-metric, acc: 0.925    testing-metric, auc: 0.9842556239388794    testing-metric, eer: 0.0756578947368421    testing-metric, ap: 0.9897729072464474    testing-metric, video_auc: 0.9817487266553481    testing-metric, acc_real:0.8026315789473685; acc_fake:1.0
+2026-05-06 21:27:53,080 - INFO - dataset: avg    step: 2226    testing-metric, acc: 0.925    testing-metric, auc: 0.9842556239388794    testing-metric, eer: 0.0756578947368421    testing-metric, ap: 0.9897729072464474    testing-metric, video_auc: 0.9817487266553481    
+2026-05-06 21:27:53,080 - INFO - ===> Test Done!
+2026-05-06 21:29:17,813 - INFO - ===> Test start!
+2026-05-06 21:29:17,821 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/data_dict_test.pickle
+2026-05-06 21:30:20,155 - INFO - dataset: Celeb-DF-v1    step: 2357    testing-loss, overall: 0.45663535594940186    testing-loss, real_loss: 1.1620924472808838    testing-loss, fake_loss: 0.0003538712044246495    
+2026-05-06 21:30:20,155 - INFO - dataset: Celeb-DF-v1    step: 2357    testing-metric, acc: 0.92375    testing-metric, auc: 0.9845441160865874    testing-metric, eer: 0.06907894736842106    testing-metric, ap: 0.9900084152973067    testing-metric, video_auc: 0.982597623089983    testing-metric, acc_real:0.7993421052631579; acc_fake:1.0
+2026-05-06 21:30:20,155 - INFO - dataset: avg    step: 2357    testing-metric, acc: 0.92375    testing-metric, auc: 0.9845441160865874    testing-metric, eer: 0.06907894736842106    testing-metric, ap: 0.9900084152973067    testing-metric, video_auc: 0.982597623089983    
+2026-05-06 21:30:20,156 - INFO - ===> Test Done!
+2026-05-06 21:30:40,699 - INFO - ===> Epoch[8] end with testing auc: 
+================================ Each dataset best metric ================================ 
+| Celeb-DF-v1:  auc=0.9891964664685908 | 
+============================================================================================= 
+================================== Average best metric ====================================== 
+| avg auc: 0.9891964664685908 | 
+| Celeb-DF-v1: 0.9891964664685908 | 
+=============================================================================================!
+2026-05-06 21:30:40,700 - INFO - ===> Epoch[9] start!
+2026-05-06 21:30:40,707 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/train/Celeb-DF-v1/data_dict_train.pickle
+2026-05-06 21:31:11,725 - INFO - Iter: 2358    training-loss, overall: 0.0003251499147154391    training-loss, real_loss: 0.0001190917391795665    training-loss, fake_loss: 0.0004057814076077193    
+2026-05-06 21:31:11,725 - INFO - Iter: 2358    training-metric, acc: 1.0    training-metric, auc: 1.0    training-metric, eer: 0.0    training-metric, ap: 1.0    
+2026-05-06 21:33:03,259 - INFO - ===> Test start!
+2026-05-06 21:33:03,261 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/data_dict_test.pickle
+2026-05-06 21:34:07,707 - INFO - dataset: Celeb-DF-v1    step: 2488    testing-loss, overall: 0.4742007255554199    testing-loss, real_loss: 1.2046198844909668    testing-loss, fake_loss: 0.0002896997320931405    
+2026-05-06 21:34:07,708 - INFO - dataset: Celeb-DF-v1    step: 2488    testing-metric, acc: 0.92375    testing-metric, auc: 0.9845540640916808    testing-metric, eer: 0.07894736842105263    testing-metric, ap: 0.9900913716575661    testing-metric, video_auc: 0.9838709677419355    testing-metric, acc_real:0.7993421052631579; acc_fake:1.0
+2026-05-06 21:34:07,708 - INFO - dataset: avg    step: 2488    testing-metric, acc: 0.92375    testing-metric, auc: 0.9845540640916808    testing-metric, eer: 0.07894736842105263    testing-metric, ap: 0.9900913716575661    testing-metric, video_auc: 0.9838709677419355    
+2026-05-06 21:34:07,708 - INFO - ===> Test Done!
+2026-05-06 21:35:32,581 - INFO - ===> Test start!
+2026-05-06 21:35:32,584 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/data_dict_test.pickle
+2026-05-06 21:36:56,486 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/ckpt_best.pth, current ckpt is 9+261
+2026-05-06 21:36:56,487 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/metric_dict_best.pickle
+2026-05-06 21:36:56,488 - INFO - dataset: Celeb-DF-v1    step: 2619    testing-loss, overall: 0.5376471281051636    testing-loss, real_loss: 1.3706252574920654    testing-loss, fake_loss: 3.9827977161621675e-05    
+2026-05-06 21:36:56,488 - INFO - dataset: Celeb-DF-v1    step: 2619    testing-metric, acc: 0.92125    testing-metric, auc: 0.9906223471986418    testing-metric, eer: 0.05592105263157895    testing-metric, ap: 0.9941020777363955    testing-metric, video_auc: 0.9902376910016978    testing-metric, acc_real:0.7927631578947368; acc_fake:1.0
+2026-05-06 21:36:58,852 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/avg/ckpt_best.pth, current ckpt is 9+261
+2026-05-06 21:36:58,853 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/avg/metric_dict_best.pickle
+2026-05-06 21:36:58,854 - INFO - dataset: avg    step: 2619    testing-metric, acc: 0.92125    testing-metric, auc: 0.9906223471986418    testing-metric, eer: 0.05592105263157895    testing-metric, ap: 0.9941020777363955    testing-metric, video_auc: 0.9902376910016978    
+2026-05-06 21:36:58,854 - INFO - ===> Test Done!
+2026-05-06 21:37:20,429 - INFO - ===> Epoch[9] end with testing auc: 
+================================ Each dataset best metric ================================ 
+| Celeb-DF-v1:  auc=0.9906223471986418 | 
+============================================================================================= 
+================================== Average best metric ====================================== 
+| avg auc: 0.9906223471986418 | 
+| Celeb-DF-v1: 0.9906223471986418 | 
+=============================================================================================!
+2026-05-06 21:37:20,545 - INFO - ===> Epoch[10] start!
+2026-05-06 21:37:20,550 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/train/Celeb-DF-v1/data_dict_train.pickle
+2026-05-06 21:37:52,477 - INFO - Iter: 2620    training-loss, overall: 9.690692240837961e-05    training-loss, real_loss: 0.00012880319263786077    training-loss, fake_loss: 9.100021998165175e-05    
+2026-05-06 21:37:52,478 - INFO - Iter: 2620    training-metric, acc: 1.0    training-metric, auc: 1.0    training-metric, eer: 0.0    training-metric, ap: 1.0    
+2026-05-06 21:39:20,444 - INFO - ===> Test start!
+2026-05-06 21:39:20,446 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/data_dict_test.pickle
+2026-05-06 21:40:24,493 - INFO - dataset: Celeb-DF-v1    step: 2750    testing-loss, overall: 0.4738464653491974    testing-loss, real_loss: 1.2057340145111084    testing-loss, fake_loss: 0.0002788631827570498    
+2026-05-06 21:40:24,494 - INFO - dataset: Celeb-DF-v1    step: 2750    testing-metric, acc: 0.92375    testing-metric, auc: 0.9859136247877758    testing-metric, eer: 0.0625    testing-metric, ap: 0.990983760934308    testing-metric, video_auc: 0.9864176570458404    testing-metric, acc_real:0.7993421052631579; acc_fake:1.0
+2026-05-06 21:40:24,494 - INFO - dataset: avg    step: 2750    testing-metric, acc: 0.92375    testing-metric, auc: 0.9859136247877758    testing-metric, eer: 0.0625    testing-metric, ap: 0.990983760934308    testing-metric, video_auc: 0.9864176570458404    
+2026-05-06 21:40:24,494 - INFO - ===> Test Done!
+2026-05-06 21:41:50,176 - INFO - ===> Test start!
+2026-05-06 21:41:50,179 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/Celeb-DF-v1_no_ortho/effort_orthogonal_loss_exp_2026-05-06-20-35-55/test/Celeb-DF-v1/data_dict_test.pickle
+2026-05-06 21:43:06,897 - INFO - dataset: Celeb-DF-v1    step: 2881    testing-loss, overall: 0.4870232045650482    testing-loss, real_loss: 1.2381891012191772    testing-loss, fake_loss: 0.00022933771833777428    
+2026-05-06 21:43:06,898 - INFO - dataset: Celeb-DF-v1    step: 2881    testing-metric, acc: 0.92375    testing-metric, auc: 0.9852338444397283    testing-metric, eer: 0.07894736842105263    testing-metric, ap: 0.9905721937462383    testing-metric, video_auc: 0.9859932088285229    testing-metric, acc_real:0.7993421052631579; acc_fake:1.0
+2026-05-06 21:43:06,898 - INFO - dataset: avg    step: 2881    testing-metric, acc: 0.92375    testing-metric, auc: 0.9852338444397283    testing-metric, eer: 0.07894736842105263    testing-metric, ap: 0.9905721937462383    testing-metric, video_auc: 0.9859932088285229    
+2026-05-06 21:43:06,898 - INFO - ===> Test Done!
+2026-05-06 21:43:29,161 - INFO - ===> Epoch[10] end with testing auc: 
+================================ Each dataset best metric ================================ 
+| Celeb-DF-v1:  auc=0.9906223471986418 | 
+============================================================================================= 
+================================== Average best metric ====================================== 
+| avg auc: 0.9906223471986418 | 
+| Celeb-DF-v1: 0.9906223471986418 | 
+=============================================================================================!
+2026-05-06 21:43:29,303 - INFO - Stop Training on best Testing metric 
+================================ Each dataset best metric ================================ 
+| Celeb-DF-v1:  auc=0.9906223471986418 | 
+============================================================================================= 
+================================== Average best metric ====================================== 
+| avg auc: 0.9906223471986418 | 
+| Celeb-DF-v1: 0.9906223471986418 | 
+=============================================================================================

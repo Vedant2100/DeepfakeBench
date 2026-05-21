@@ -27,7 +27,7 @@ from transformers import AutoProcessor, CLIPModel, ViTModel, ViTConfig
 logger = logging.getLogger(__name__)
 
 
-@DETECTOR.register_module(module_name='effort')
+@DETECTOR.register_module(module_name='effort_orthogonal_loss_exp')
 class EffortDetector(nn.Module):
     def __init__(self, config=None):
         super(EffortDetector, self).__init__()
@@ -66,26 +66,6 @@ class EffortDetector(nn.Module):
 
     def classifier(self, features: torch.tensor) -> torch.tensor:
         return self.head(features)
-
-    # def get_losses(self, data_dict: dict, pred_dict: dict) -> dict:
-    #     label = data_dict['label']
-    #     pred = pred_dict['cls']
-    #     loss = self.loss_func(pred, label)
-        
-    #     # Regularization term
-    #     lambda_reg = 0.1
-    #     orthogonal_losses = []
-    #     for module in self.backbone.modules():
-    #         if isinstance(module, SVDResidualLinear):
-    #             # Apply orthogonal constraints to the U_residual and V_residual matrix
-    #             orthogonal_losses.append(module.compute_orthogonal_loss())
-        
-    #     if orthogonal_losses:
-    #         reg_term = sum(orthogonal_losses)
-    #         loss += lambda_reg * reg_term
-        
-    #     loss_dict = {'overall': loss}
-    #     return loss_dict
 
     def compute_weight_loss(self):
         weight_sum_dict = {}
@@ -137,8 +117,17 @@ class EffortDetector(nn.Module):
             loss_fake = torch.tensor(0.0, device=pred.device)
         
 
-        # loss2 = self.compute_weight_loss()
-        # overall_loss = loss + loss2
+        if self.config and self.config.get('with_orthogonal_loss', False):
+            lambda_reg = self.config.get('orthogonal_loss_weight', 0.1)
+            orthogonal_losses = []
+            for module in self.backbone.modules():
+                if isinstance(module, SVDResidualLinear):
+                    # Apply orthogonal constraints to the U_residual and V_residual matrix
+                    orthogonal_losses.append(module.compute_orthogonal_loss())
+            
+            if orthogonal_losses:
+                reg_term = sum(orthogonal_losses)
+                loss += lambda_reg * reg_term
 
         # Return a dictionary with all losses
         loss_dict = {
@@ -212,7 +201,7 @@ class SVDResidualLinear(nn.Module):
     
     def compute_orthogonal_loss(self):
         # According to the properties of orthogonal matrices: A^TA = I
-        UUT_residual = self.U_residual @ self.U_residual.t()
+        UUT_residual = self.U_residual.t() @ self.U_residual
         VVT_residual = self.V_residual @ self.V_residual.t()
         
         # Construct an identity matrix

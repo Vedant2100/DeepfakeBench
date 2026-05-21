@@ -1,0 +1,95 @@
+log_dir: experiments/orthogonal_loss_exp/logs/Celeb-DF-v2_ortho
+pretrained: no need to provide this for the effort model
+model_name: effort_orthogonal_loss_exp
+backbone_name: vit
+backbone_config:
+  mode: original
+  num_classes: 2
+  inc: 3
+  dropout: false
+all_dataset:
+- FaceForensics++
+- FF-F2F
+- FF-DF
+- FF-FS
+- FF-NT
+- FaceShifter
+- DeepFakeDetection
+- Celeb-DF-v1
+- Celeb-DF-v2
+- DFDCP
+- DFDC
+- DeeperForensics-1.0
+- UADFV
+train_dataset:
+- Celeb-DF-v2
+test_dataset:
+- Celeb-DF-v2
+compression: c23
+train_batchSize: 32
+test_batchSize: 32
+workers: 8
+frame_num:
+  train: 8
+  test: 8
+resolution: 224
+with_mask: false
+with_landmark: false
+use_data_augmentation: true
+data_aug:
+  flip_prob: 0.5
+  rotate_prob: 0.5
+  rotate_limit:
+  - -10
+  - 10
+  blur_prob: 0.5
+  blur_limit:
+  - 3
+  - 7
+  brightness_prob: 0.5
+  brightness_limit:
+  - -0.1
+  - 0.1
+  contrast_limit:
+  - -0.1
+  - 0.1
+  quality_lower: 40
+  quality_upper: 100
+mean:
+- 0.48145466
+- 0.4578275
+- 0.40821073
+std:
+- 0.26862954
+- 0.26130258
+- 0.27577711
+optimizer:
+  type: adam
+  adam:
+    lr: 0.0002
+    beta1: 0.9
+    beta2: 0.999
+    eps: 1.0e-08
+    weight_decay: 0.0005
+    amsgrad: false
+  sgd:
+    lr: 0.0002
+    momentum: 0.9
+    weight_decay: 0.0005
+lr_scheduler: null
+nEpochs: 10
+start_epoch: 0
+save_epoch: 1
+rec_iter: 100
+logdir: ./logs
+manualSeed: 1024
+save_ckpt: true
+save_feat: true
+loss_func: cross_entropy
+losstype: null
+metric_scoring: auc
+ngpu: 1
+cuda: true
+cudnn: true
+save_avg: true
+with_orthogonal_loss: true

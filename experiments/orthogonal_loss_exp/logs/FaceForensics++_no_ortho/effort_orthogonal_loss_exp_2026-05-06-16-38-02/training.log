@@ -1,0 +1,410 @@
+2026-05-06 16:38:02,784 - INFO - Save log to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02
+2026-05-06 16:38:02,784 - INFO - --------------- Configuration ---------------
+2026-05-06 16:38:02,784 - INFO - Parameters: 
+mode: train
+lmdb: False
+dry_run: False
+rgb_dir: ./datasets
+lmdb_dir: ./datasets/lmdb
+dataset_json_folder: ./preprocessing/dataset_json
+SWA: False
+save_avg: True
+log_dir: experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho
+label_dict: {'DFD_fake': 1, 'DFD_real': 0, 'FF-SH': 1, 'FF-F2F': 1, 'FF-DF': 1, 'FF-FS': 1, 'FF-NT': 1, 'FF-FH': 1, 'FF-real': 0, 'CelebDFv1_real': 0, 'CelebDFv1_fake': 1, 'CelebDFv2_real': 0, 'CelebDFv2_fake': 1, 'DFDCP_Real': 0, 'DFDCP_FakeA': 1, 'DFDCP_FakeB': 1, 'DFDC_Fake': 1, 'DFDC_Real': 0, 'DF_fake': 1, 'DF_real': 0, 'UADFV_Fake': 1, 'UADFV_Real': 0, 'roop_Real': 0, 'roop_Fake': 1}
+pretrained: no need to provide this for the effort model
+model_name: effort_orthogonal_loss_exp
+backbone_name: vit
+backbone_config: {'mode': 'original', 'num_classes': 2, 'inc': 3, 'dropout': False}
+all_dataset: ['FaceForensics++', 'FF-F2F', 'FF-DF', 'FF-FS', 'FF-NT', 'FaceShifter', 'DeepFakeDetection', 'Celeb-DF-v1', 'Celeb-DF-v2', 'DFDCP', 'DFDC', 'DeeperForensics-1.0', 'UADFV']
+train_dataset: ['FaceForensics++']
+test_dataset: ['FaceForensics++']
+compression: c23
+train_batchSize: 32
+test_batchSize: 32
+workers: 8
+frame_num: {'train': 8, 'test': 8}
+resolution: 224
+with_mask: False
+with_landmark: False
+use_data_augmentation: True
+data_aug: {'flip_prob': 0.5, 'rotate_prob': 0.5, 'rotate_limit': [-10, 10], 'blur_prob': 0.5, 'blur_limit': [3, 7], 'brightness_prob': 0.5, 'brightness_limit': [-0.1, 0.1], 'contrast_limit': [-0.1, 0.1], 'quality_lower': 40, 'quality_upper': 100}
+mean: [0.48145466, 0.4578275, 0.40821073]
+std: [0.26862954, 0.26130258, 0.27577711]
+optimizer: {'type': 'adam', 'adam': {'lr': 0.0002, 'beta1': 0.9, 'beta2': 0.999, 'eps': 1e-08, 'weight_decay': 0.0005, 'amsgrad': False}, 'sgd': {'lr': 0.0002, 'momentum': 0.9, 'weight_decay': 0.0005}}
+lr_scheduler: None
+nEpochs: 10
+start_epoch: 0
+save_epoch: 1
+rec_iter: 100
+logdir: ./logs
+manualSeed: 1024
+save_ckpt: True
+save_feat: True
+loss_func: cross_entropy
+losstype: None
+metric_scoring: auc
+ngpu: 1
+cuda: True
+cudnn: True
+with_orthogonal_loss: False
+local_rank: 0
+ddp: False
+
+2026-05-06 16:38:24,378 - INFO - ===> Epoch[0] start!
+2026-05-06 16:38:24,389 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/train/FaceForensics++/data_dict_train.pickle
+2026-05-06 16:38:55,319 - INFO - Iter: 0    training-loss, overall: 0.5047953724861145    training-loss, real_loss: 2.1464507579803467    training-loss, fake_loss: 0.2702731192111969    
+2026-05-06 16:38:55,336 - INFO - Iter: 0    training-metric, acc: 0.84375    training-metric, auc: 0.2232142857142857    training-metric, eer: 0.75    training-metric, ap: 0.811035606094132    
+2026-05-06 16:42:14,659 - INFO - Iter: 300    training-loss, overall: 0.4464346468448639    training-loss, real_loss: 1.3410248756408691    training-loss, fake_loss: 0.21471576392650604    
+2026-05-06 16:42:14,660 - INFO - Iter: 300    training-metric, acc: 0.79    training-metric, auc: 0.7339805617508148    training-metric, eer: 0.3176020923520927    training-metric, ap: 0.9197614241706921    
+2026-05-06 16:46:01,341 - INFO - Iter: 600    training-loss, overall: 0.37034082412719727    training-loss, real_loss: 1.1099328994750977    training-loss, fake_loss: 0.18957659602165222    
+2026-05-06 16:46:01,341 - INFO - Iter: 600    training-metric, acc: 0.81625    training-metric, auc: 0.8373717652470668    training-metric, eer: 0.22872222222222258    training-metric, ap: 0.9574354074571528    
+2026-05-06 16:49:47,686 - INFO - ===> Test start!
+2026-05-06 16:49:47,693 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/data_dict_test.pickle
+2026-05-06 16:51:06,784 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/metric_dict_best.pickle
+2026-05-06 16:51:06,819 - INFO - dataset: FaceForensics++    step: 898    testing-loss, overall: 0.30777809023857117    testing-loss, real_loss: 0.7993091344833374    testing-loss, fake_loss: 0.1839410662651062    
+2026-05-06 16:51:06,826 - INFO - dataset: FaceForensics++    step: 898    testing-metric, acc: 0.8473214285714286    testing-metric, auc: 0.8993455038265306    testing-metric, eer: 0.18571428571428572    testing-metric, ap: 0.9747851006643043    testing-metric, video_auc: 0.9825510204081633    testing-metric, acc_real:0.48125; acc_fake:0.9388392857142858
+2026-05-06 16:51:09,614 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/ckpt_best.pth, current ckpt is 0+898
+2026-05-06 16:51:09,615 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/metric_dict_best.pickle
+2026-05-06 16:51:09,663 - INFO - dataset: avg    step: 898    testing-metric, acc: 0.8473214285714286    testing-metric, auc: 0.8993455038265306    testing-metric, eer: 0.18571428571428572    testing-metric, ap: 0.9747851006643043    testing-metric, video_auc: 0.9825510204081633    
+2026-05-06 16:51:09,663 - INFO - ===> Test Done!
+2026-05-06 16:51:37,170 - INFO - ===> Epoch[0] end with testing auc: 
+================================ Each dataset best metric ================================ 
+| FaceForensics++:  auc=0.8993455038265306 | 
+============================================================================================= 
+================================== Average best metric ====================================== 
+| avg auc: 0.8993455038265306 | 
+| FaceForensics++: 0.8993455038265306 | 
+=============================================================================================!
+2026-05-06 16:51:37,338 - INFO - ===> Epoch[1] start!
+2026-05-06 16:51:37,354 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/train/FaceForensics++/data_dict_train.pickle
+2026-05-06 16:51:45,586 - INFO - Iter: 899    training-loss, overall: 0.40913161635398865    training-loss, real_loss: 1.1505793333053589    training-loss, fake_loss: 0.1189999058842659    
+2026-05-06 16:51:45,592 - INFO - Iter: 899    training-metric, acc: 0.75    training-metric, auc: 0.8792270531400966    training-metric, eer: 0.3333333333333333    training-metric, ap: 0.9587020176225575    
+2026-05-06 16:55:17,574 - INFO - Iter: 1199    training-loss, overall: 0.32731208205223083    training-loss, real_loss: 0.9598767161369324    training-loss, fake_loss: 0.1746940165758133    
+2026-05-06 16:55:17,575 - INFO - Iter: 1199    training-metric, acc: 0.8388541666666667    training-metric, auc: 0.8810010117666897    training-metric, eer: 0.18404177304177313    training-metric, ap: 0.9702065670461967    
+2026-05-06 16:57:22,361 - INFO - ===> Test start!
+2026-05-06 16:57:22,367 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/data_dict_test.pickle
+2026-05-06 16:58:46,230 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/metric_dict_best.pickle
+2026-05-06 16:58:46,231 - INFO - dataset: FaceForensics++    step: 1346    testing-loss, overall: 0.26220211386680603    testing-loss, real_loss: 0.44131848216056824    testing-loss, fake_loss: 0.21498721837997437    
+2026-05-06 16:58:46,232 - INFO - dataset: FaceForensics++    step: 1346    testing-metric, acc: 0.8748214285714285    testing-metric, auc: 0.9403778698979591    testing-metric, eer: 0.12857142857142856    testing-metric, ap: 0.9851978390921912    testing-metric, video_auc: 0.9892857142857143    testing-metric, acc_real:0.8464285714285714; acc_fake:0.8819196428571429
+2026-05-06 16:58:49,204 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/ckpt_best.pth, current ckpt is 1+447
+2026-05-06 16:58:49,205 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/metric_dict_best.pickle
+2026-05-06 16:58:49,206 - INFO - dataset: avg    step: 1346    testing-metric, acc: 0.8748214285714285    testing-metric, auc: 0.9403778698979591    testing-metric, eer: 0.12857142857142856    testing-metric, ap: 0.9851978390921912    testing-metric, video_auc: 0.9892857142857143    
+2026-05-06 16:58:49,206 - INFO - ===> Test Done!
+2026-05-06 17:00:31,633 - INFO - Iter: 1499    training-loss, overall: 0.3027610778808594    training-loss, real_loss: 0.864158570766449    training-loss, fake_loss: 0.16250252723693848    
+2026-05-06 17:00:31,633 - INFO - Iter: 1499    training-metric, acc: 0.8553125    training-metric, auc: 0.903632252427202    training-metric, eer: 0.16501753801753816    training-metric, ap: 0.9749167903992411    
+2026-05-06 17:04:16,881 - INFO - ===> Test start!
+2026-05-06 17:04:16,887 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/data_dict_test.pickle
+2026-05-06 17:05:30,430 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/metric_dict_best.pickle
+2026-05-06 17:05:30,432 - INFO - dataset: FaceForensics++    step: 1795    testing-loss, overall: 0.21560637652873993    testing-loss, real_loss: 0.42760390043258667    testing-loss, fake_loss: 0.15973921120166779    
+2026-05-06 17:05:30,432 - INFO - dataset: FaceForensics++    step: 1795    testing-metric, acc: 0.9091071428571429    testing-metric, auc: 0.9580106026785714    testing-metric, eer: 0.10178571428571428    testing-metric, ap: 0.9894640152871688    testing-metric, video_auc: 0.9915816326530612    testing-metric, acc_real:0.8401785714285714; acc_fake:0.9263392857142857
+2026-05-06 17:05:33,370 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/ckpt_best.pth, current ckpt is 1+896
+2026-05-06 17:05:33,371 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/metric_dict_best.pickle
+2026-05-06 17:05:33,371 - INFO - dataset: avg    step: 1795    testing-metric, acc: 0.9091071428571429    testing-metric, auc: 0.9580106026785714    testing-metric, eer: 0.10178571428571428    testing-metric, ap: 0.9894640152871688    testing-metric, video_auc: 0.9915816326530612    
+2026-05-06 17:05:33,371 - INFO - ===> Test Done!
+2026-05-06 17:06:02,970 - INFO - ===> Epoch[1] end with testing auc: 
+================================ Each dataset best metric ================================ 
+| FaceForensics++:  auc=0.9580106026785714 | 
+============================================================================================= 
+================================== Average best metric ====================================== 
+| avg auc: 0.9580106026785714 | 
+| FaceForensics++: 0.9580106026785714 | 
+=============================================================================================!
+2026-05-06 17:06:03,101 - INFO - ===> Epoch[2] start!
+2026-05-06 17:06:03,119 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/train/FaceForensics++/data_dict_train.pickle
+2026-05-06 17:06:08,493 - INFO - Iter: 1798    training-loss, overall: 0.19904601573944092    training-loss, real_loss: 0.5923903584480286    training-loss, fake_loss: 0.10827427357435226    
+2026-05-06 17:06:08,494 - INFO - Iter: 1798    training-metric, acc: 0.90625    training-metric, auc: 0.9743589743589743    training-metric, eer: 0.0    training-metric, ap: 0.9948717948717949    
+2026-05-06 17:09:53,616 - INFO - Iter: 2098    training-loss, overall: 0.26202404499053955    training-loss, real_loss: 0.7485504150390625    training-loss, fake_loss: 0.1453430950641632    
+2026-05-06 17:09:53,616 - INFO - Iter: 2098    training-metric, acc: 0.87875    training-metric, auc: 0.9312946246580625    training-metric, eer: 0.12069707144707145    training-metric, ap: 0.9827842586187933    
+2026-05-06 17:11:58,005 - INFO - ===> Test start!
+2026-05-06 17:11:58,012 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/data_dict_test.pickle
+2026-05-06 17:13:17,389 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/metric_dict_best.pickle
+2026-05-06 17:13:17,390 - INFO - dataset: FaceForensics++    step: 2244    testing-loss, overall: 0.19176720082759857    testing-loss, real_loss: 0.4695824682712555    testing-loss, fake_loss: 0.11901158094406128    
+2026-05-06 17:13:17,391 - INFO - dataset: FaceForensics++    step: 2244    testing-metric, acc: 0.9153571428571429    testing-metric, auc: 0.9646075813137753    testing-metric, eer: 0.09285714285714286    testing-metric, ap: 0.99137396676365    testing-metric, video_auc: 0.9946938775510205    testing-metric, acc_real:0.8232142857142857; acc_fake:0.9383928571428571
+2026-05-06 17:13:20,368 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/ckpt_best.pth, current ckpt is 2+446
+2026-05-06 17:13:20,370 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/metric_dict_best.pickle
+2026-05-06 17:13:20,370 - INFO - dataset: avg    step: 2244    testing-metric, acc: 0.9153571428571429    testing-metric, auc: 0.9646075813137753    testing-metric, eer: 0.09285714285714286    testing-metric, ap: 0.99137396676365    testing-metric, video_auc: 0.9946938775510205    
+2026-05-06 17:13:20,370 - INFO - ===> Test Done!
+2026-05-06 17:15:02,676 - INFO - Iter: 2398    training-loss, overall: 0.25259825587272644    training-loss, real_loss: 0.7095432877540588    training-loss, fake_loss: 0.13675956428050995    
+2026-05-06 17:15:02,677 - INFO - Iter: 2398    training-metric, acc: 0.8875    training-metric, auc: 0.9397203397172375    training-metric, eer: 0.12237195171977784    training-metric, ap: 0.984397863894573    
+2026-05-06 17:18:47,944 - INFO - ===> Test start!
+2026-05-06 17:18:47,950 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/data_dict_test.pickle
+2026-05-06 17:20:05,852 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/metric_dict_best.pickle
+2026-05-06 17:20:05,853 - INFO - dataset: FaceForensics++    step: 2693    testing-loss, overall: 0.1834123581647873    testing-loss, real_loss: 0.42496058344841003    testing-loss, fake_loss: 0.11976426094770432    
+2026-05-06 17:20:05,854 - INFO - dataset: FaceForensics++    step: 2693    testing-metric, acc: 0.9210714285714285    testing-metric, auc: 0.9678342235331633    testing-metric, eer: 0.08571428571428572    testing-metric, ap: 0.9921781725246444    testing-metric, video_auc: 0.9956122448979592    testing-metric, acc_real:0.8276785714285714; acc_fake:0.9444196428571429
+2026-05-06 17:20:08,780 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/ckpt_best.pth, current ckpt is 2+895
+2026-05-06 17:20:08,781 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/metric_dict_best.pickle
+2026-05-06 17:20:08,781 - INFO - dataset: avg    step: 2693    testing-metric, acc: 0.9210714285714285    testing-metric, auc: 0.9678342235331633    testing-metric, eer: 0.08571428571428572    testing-metric, ap: 0.9921781725246444    testing-metric, video_auc: 0.9956122448979592    
+2026-05-06 17:20:08,781 - INFO - ===> Test Done!
+2026-05-06 17:20:39,476 - INFO - ===> Epoch[2] end with testing auc: 
+================================ Each dataset best metric ================================ 
+| FaceForensics++:  auc=0.9678342235331633 | 
+============================================================================================= 
+================================== Average best metric ====================================== 
+| avg auc: 0.9678342235331633 | 
+| FaceForensics++: 0.9678342235331633 | 
+=============================================================================================!
+2026-05-06 17:20:39,630 - INFO - ===> Epoch[3] start!
+2026-05-06 17:20:39,648 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/train/FaceForensics++/data_dict_train.pickle
+2026-05-06 17:20:47,567 - INFO - Iter: 2697    training-loss, overall: 0.18883974850177765    training-loss, real_loss: 0.6961199045181274    training-loss, fake_loss: 0.09489894658327103    
+2026-05-06 17:20:47,567 - INFO - Iter: 2697    training-metric, acc: 0.90625    training-metric, auc: 0.9555555555555556    training-metric, eer: 0.0    training-metric, ap: 0.99284122085048    
+2026-05-06 17:24:18,948 - INFO - Iter: 2997    training-loss, overall: 0.2316439151763916    training-loss, real_loss: 0.6178252100944519    training-loss, fake_loss: 0.12894462049007416    
+2026-05-06 17:24:18,949 - INFO - Iter: 2997    training-metric, acc: 0.8953125    training-metric, auc: 0.9520378452791302    training-metric, eer: 0.10078535353535348    training-metric, ap: 0.9872685103598952    
+2026-05-06 17:26:23,893 - INFO - ===> Test start!
+2026-05-06 17:26:23,901 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/data_dict_test.pickle
+2026-05-06 17:27:47,166 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/metric_dict_best.pickle
+2026-05-06 17:27:47,167 - INFO - dataset: FaceForensics++    step: 3142    testing-loss, overall: 0.1706952154636383    testing-loss, real_loss: 0.3701927661895752    testing-loss, fake_loss: 0.11870648711919785    
+2026-05-06 17:27:47,168 - INFO - dataset: FaceForensics++    step: 3142    testing-metric, acc: 0.9294642857142857    testing-metric, auc: 0.9726584422831633    testing-metric, eer: 0.07857142857142857    testing-metric, ap: 0.9932954860536238    testing-metric, video_auc: 0.9973469387755103    testing-metric, acc_real:0.8517857142857143; acc_fake:0.9488839285714286
+2026-05-06 17:27:50,457 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/ckpt_best.pth, current ckpt is 3+445
+2026-05-06 17:27:50,458 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/metric_dict_best.pickle
+2026-05-06 17:27:50,458 - INFO - dataset: avg    step: 3142    testing-metric, acc: 0.9294642857142857    testing-metric, auc: 0.9726584422831633    testing-metric, eer: 0.07857142857142857    testing-metric, ap: 0.9932954860536238    testing-metric, video_auc: 0.9973469387755103    
+2026-05-06 17:27:50,458 - INFO - ===> Test Done!
+2026-05-06 17:29:34,178 - INFO - Iter: 3297    training-loss, overall: 0.22034713625907898    training-loss, real_loss: 0.6314042806625366    training-loss, fake_loss: 0.12140500545501709    
+2026-05-06 17:29:34,179 - INFO - Iter: 3297    training-metric, acc: 0.9021875    training-metric, auc: 0.9525711099190107    training-metric, eer: 0.09115419765419759    training-metric, ap: 0.9881229760027463    
+2026-05-06 17:33:19,063 - INFO - ===> Test start!
+2026-05-06 17:33:19,069 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/data_dict_test.pickle
+2026-05-06 17:34:42,028 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/metric_dict_best.pickle
+2026-05-06 17:34:42,030 - INFO - dataset: FaceForensics++    step: 3591    testing-loss, overall: 0.16373659670352936    testing-loss, real_loss: 0.3329554498195648    testing-loss, fake_loss: 0.11960557848215103    
+2026-05-06 17:34:42,030 - INFO - dataset: FaceForensics++    step: 3591    testing-metric, acc: 0.9328571428571428    testing-metric, auc: 0.974296277104592    testing-metric, eer: 0.07589285714285714    testing-metric, ap: 0.993823256014187    testing-metric, video_auc: 0.998061224489796    testing-metric, acc_real:0.875; acc_fake:0.9473214285714285
+2026-05-06 17:34:45,149 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/ckpt_best.pth, current ckpt is 3+894
+2026-05-06 17:34:45,150 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/metric_dict_best.pickle
+2026-05-06 17:34:45,150 - INFO - dataset: avg    step: 3591    testing-metric, acc: 0.9328571428571428    testing-metric, auc: 0.974296277104592    testing-metric, eer: 0.07589285714285714    testing-metric, ap: 0.993823256014187    testing-metric, video_auc: 0.998061224489796    
+2026-05-06 17:34:45,150 - INFO - ===> Test Done!
+2026-05-06 17:35:16,446 - INFO - ===> Epoch[3] end with testing auc: 
+================================ Each dataset best metric ================================ 
+| FaceForensics++:  auc=0.974296277104592 | 
+============================================================================================= 
+================================== Average best metric ====================================== 
+| avg auc: 0.974296277104592 | 
+| FaceForensics++: 0.974296277104592 | 
+=============================================================================================!
+2026-05-06 17:35:16,596 - INFO - ===> Epoch[4] start!
+2026-05-06 17:35:16,615 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/train/FaceForensics++/data_dict_train.pickle
+2026-05-06 17:35:35,046 - INFO - Iter: 3596    training-loss, overall: 0.24787430465221405    training-loss, real_loss: 0.6053355932235718    training-loss, fake_loss: 0.12872056663036346    
+2026-05-06 17:35:35,046 - INFO - Iter: 3596    training-metric, acc: 0.84375    training-metric, auc: 0.9479166666666667    training-metric, eer: 0.125    training-metric, ap: 0.9836687386687386    
+2026-05-06 17:39:13,017 - INFO - Iter: 3896    training-loss, overall: 0.1967606246471405    training-loss, real_loss: 0.5582343935966492    training-loss, fake_loss: 0.11114872246980667    
+2026-05-06 17:39:13,017 - INFO - Iter: 3896    training-metric, acc: 0.9134375    training-metric, auc: 0.9609363772718911    training-metric, eer: 0.0804006271506271    training-metric, ap: 0.9906821781475278    
+2026-05-06 17:41:17,366 - INFO - ===> Test start!
+2026-05-06 17:41:17,375 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/data_dict_test.pickle
+2026-05-06 17:42:34,788 - INFO - dataset: FaceForensics++    step: 4040    testing-loss, overall: 0.17983171343803406    testing-loss, real_loss: 0.240781769156456    testing-loss, fake_loss: 0.1632022112607956    
+2026-05-06 17:42:34,789 - INFO - dataset: FaceForensics++    step: 4040    testing-metric, acc: 0.9266071428571429    testing-metric, auc: 0.97374342315051    testing-metric, eer: 0.07410714285714286    testing-metric, ap: 0.993693811190837    testing-metric, video_auc: 0.9979081632653062    testing-metric, acc_real:0.9107142857142857; acc_fake:0.9305803571428571
+2026-05-06 17:42:34,789 - INFO - dataset: avg    step: 4040    testing-metric, acc: 0.9266071428571429    testing-metric, auc: 0.97374342315051    testing-metric, eer: 0.07410714285714286    testing-metric, ap: 0.993693811190837    testing-metric, video_auc: 0.9979081632653062    
+2026-05-06 17:42:34,790 - INFO - ===> Test Done!
+2026-05-06 17:44:19,870 - INFO - Iter: 4196    training-loss, overall: 0.1998651772737503    training-loss, real_loss: 0.5570838451385498    training-loss, fake_loss: 0.11119083315134048    
+2026-05-06 17:44:19,871 - INFO - Iter: 4196    training-metric, acc: 0.9130208333333333    training-metric, auc: 0.9621292329849108    training-metric, eer: 0.0781314230139733    training-metric, ap: 0.9907565503290247    
+2026-05-06 17:48:03,869 - INFO - ===> Test start!
+2026-05-06 17:48:03,876 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/data_dict_test.pickle
+2026-05-06 17:49:23,518 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/metric_dict_best.pickle
+2026-05-06 17:49:23,519 - INFO - dataset: FaceForensics++    step: 4489    testing-loss, overall: 0.16915474832057953    testing-loss, real_loss: 0.26242196559906006    testing-loss, fake_loss: 0.1445736289024353    
+2026-05-06 17:49:23,520 - INFO - dataset: FaceForensics++    step: 4489    testing-metric, acc: 0.9341071428571428    testing-metric, auc: 0.9753013392857142    testing-metric, eer: 0.07142857142857142    testing-metric, ap: 0.9941052772206989    testing-metric, video_auc: 0.9979591836734694    testing-metric, acc_real:0.8982142857142857; acc_fake:0.9430803571428571
+2026-05-06 17:49:26,561 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/ckpt_best.pth, current ckpt is 4+893
+2026-05-06 17:49:26,562 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/metric_dict_best.pickle
+2026-05-06 17:49:26,563 - INFO - dataset: avg    step: 4489    testing-metric, acc: 0.9341071428571428    testing-metric, auc: 0.9753013392857142    testing-metric, eer: 0.07142857142857142    testing-metric, ap: 0.9941052772206989    testing-metric, video_auc: 0.9979591836734694    
+2026-05-06 17:49:26,563 - INFO - ===> Test Done!
+2026-05-06 17:49:59,354 - INFO - ===> Epoch[4] end with testing auc: 
+================================ Each dataset best metric ================================ 
+| FaceForensics++:  auc=0.9753013392857142 | 
+============================================================================================= 
+================================== Average best metric ====================================== 
+| avg auc: 0.9753013392857142 | 
+| FaceForensics++: 0.9753013392857142 | 
+=============================================================================================!
+2026-05-06 17:49:59,487 - INFO - ===> Epoch[5] start!
+2026-05-06 17:49:59,506 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/train/FaceForensics++/data_dict_train.pickle
+2026-05-06 17:50:25,012 - INFO - Iter: 4495    training-loss, overall: 0.26072824001312256    training-loss, real_loss: 0.7465724945068359    training-loss, fake_loss: 0.09878011792898178    
+2026-05-06 17:50:25,036 - INFO - Iter: 4495    training-metric, acc: 0.90625    training-metric, auc: 0.9479166666666667    training-metric, eer: 0.25    training-metric, ap: 0.9836188750862663    
+2026-05-06 17:53:44,464 - INFO - Iter: 4795    training-loss, overall: 0.18866319954395294    training-loss, real_loss: 0.5146336555480957    training-loss, fake_loss: 0.1083492785692215    
+2026-05-06 17:53:44,465 - INFO - Iter: 4795    training-metric, acc: 0.92    training-metric, auc: 0.9652632772266537    training-metric, eer: 0.08160769785769782    training-metric, ap: 0.9914112572238535    
+2026-05-06 17:55:48,219 - INFO - ===> Test start!
+2026-05-06 17:55:48,227 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/data_dict_test.pickle
+2026-05-06 17:57:17,705 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/metric_dict_best.pickle
+2026-05-06 17:57:17,706 - INFO - dataset: FaceForensics++    step: 4938    testing-loss, overall: 0.159470796585083    testing-loss, real_loss: 0.318278431892395    testing-loss, fake_loss: 0.11834373325109482    
+2026-05-06 17:57:17,707 - INFO - dataset: FaceForensics++    step: 4938    testing-metric, acc: 0.9378571428571428    testing-metric, auc: 0.9765931919642857    testing-metric, eer: 0.07142857142857142    testing-metric, ap: 0.9944257881893387    testing-metric, video_auc: 0.9979591836734694    testing-metric, acc_real:0.8767857142857143; acc_fake:0.953125
+2026-05-06 17:57:20,547 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/ckpt_best.pth, current ckpt is 5+443
+2026-05-06 17:57:20,548 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/metric_dict_best.pickle
+2026-05-06 17:57:20,548 - INFO - dataset: avg    step: 4938    testing-metric, acc: 0.9378571428571428    testing-metric, auc: 0.9765931919642857    testing-metric, eer: 0.07142857142857142    testing-metric, ap: 0.9944257881893387    testing-metric, video_auc: 0.9979591836734694    
+2026-05-06 17:57:20,548 - INFO - ===> Test Done!
+2026-05-06 17:59:05,619 - INFO - Iter: 5095    training-loss, overall: 0.18729060888290405    training-loss, real_loss: 0.5134958624839783    training-loss, fake_loss: 0.10435952991247177    
+2026-05-06 17:59:05,619 - INFO - Iter: 5095    training-metric, acc: 0.919375    training-metric, auc: 0.9681594183166217    training-metric, eer: 0.07549157324157317    training-metric, ap: 0.9917431161499581    
+2026-05-06 18:02:49,687 - INFO - ===> Test start!
+2026-05-06 18:02:49,694 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/data_dict_test.pickle
+2026-05-06 18:04:11,601 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/metric_dict_best.pickle
+2026-05-06 18:04:11,602 - INFO - dataset: FaceForensics++    step: 5387    testing-loss, overall: 0.15927238762378693    testing-loss, real_loss: 0.2564069628715515    testing-loss, fake_loss: 0.13320335745811462    
+2026-05-06 18:04:11,603 - INFO - dataset: FaceForensics++    step: 5387    testing-metric, acc: 0.9366071428571429    testing-metric, auc: 0.9774649234693877    testing-metric, eer: 0.07053571428571428    testing-metric, ap: 0.9946500757909422    testing-metric, video_auc: 0.9986734693877551    testing-metric, acc_real:0.8982142857142857; acc_fake:0.9462053571428571
+2026-05-06 18:04:14,690 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/ckpt_best.pth, current ckpt is 5+892
+2026-05-06 18:04:14,691 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/metric_dict_best.pickle
+2026-05-06 18:04:14,691 - INFO - dataset: avg    step: 5387    testing-metric, acc: 0.9366071428571429    testing-metric, auc: 0.9774649234693877    testing-metric, eer: 0.07053571428571428    testing-metric, ap: 0.9946500757909422    testing-metric, video_auc: 0.9986734693877551    
+2026-05-06 18:04:14,691 - INFO - ===> Test Done!
+2026-05-06 18:04:48,506 - INFO - ===> Epoch[5] end with testing auc: 
+================================ Each dataset best metric ================================ 
+| FaceForensics++:  auc=0.9774649234693877 | 
+============================================================================================= 
+================================== Average best metric ====================================== 
+| avg auc: 0.9774649234693877 | 
+| FaceForensics++: 0.9774649234693877 | 
+=============================================================================================!
+2026-05-06 18:04:48,507 - INFO - ===> Epoch[6] start!
+2026-05-06 18:04:48,523 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/train/FaceForensics++/data_dict_train.pickle
+2026-05-06 18:05:22,076 - INFO - Iter: 5394    training-loss, overall: 0.25723180174827576    training-loss, real_loss: 0.9725203514099121    training-loss, fake_loss: 0.09216523170471191    
+2026-05-06 18:05:22,077 - INFO - Iter: 5394    training-metric, acc: 0.90625    training-metric, auc: 0.9487179487179487    training-metric, eer: 0.16666666666666666    training-metric, ap: 0.9886110733259275    
+2026-05-06 18:08:46,577 - INFO - Iter: 5694    training-loss, overall: 0.18023325502872467    training-loss, real_loss: 0.4820253252983093    training-loss, fake_loss: 0.10386325418949127    
+2026-05-06 18:08:46,578 - INFO - Iter: 5694    training-metric, acc: 0.92375    training-metric, auc: 0.9687757559517093    training-metric, eer: 0.07422009428698387    training-metric, ap: 0.9921431876738408    
+2026-05-06 18:10:50,302 - INFO - ===> Test start!
+2026-05-06 18:10:50,310 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/data_dict_test.pickle
+2026-05-06 18:12:18,362 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/metric_dict_best.pickle
+2026-05-06 18:12:18,363 - INFO - dataset: FaceForensics++    step: 5836    testing-loss, overall: 0.1743452399969101    testing-loss, real_loss: 0.18880721926689148    testing-loss, fake_loss: 0.16990262269973755    
+2026-05-06 18:12:18,364 - INFO - dataset: FaceForensics++    step: 5836    testing-metric, acc: 0.9310714285714285    testing-metric, auc: 0.9779406489158162    testing-metric, eer: 0.07053571428571428    testing-metric, ap: 0.9947497086932496    testing-metric, video_auc: 0.999030612244898    testing-metric, acc_real:0.9232142857142858; acc_fake:0.9330357142857143
+2026-05-06 18:12:21,387 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/ckpt_best.pth, current ckpt is 6+442
+2026-05-06 18:12:21,388 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/metric_dict_best.pickle
+2026-05-06 18:12:21,388 - INFO - dataset: avg    step: 5836    testing-metric, acc: 0.9310714285714285    testing-metric, auc: 0.9779406489158162    testing-metric, eer: 0.07053571428571428    testing-metric, ap: 0.9947497086932496    testing-metric, video_auc: 0.999030612244898    
+2026-05-06 18:12:21,388 - INFO - ===> Test Done!
+2026-05-06 18:14:07,886 - INFO - Iter: 5994    training-loss, overall: 0.18052104115486145    training-loss, real_loss: 0.5059744119644165    training-loss, fake_loss: 0.09985772520303726    
+2026-05-06 18:14:07,886 - INFO - Iter: 5994    training-metric, acc: 0.9217708333333333    training-metric, auc: 0.97071392343104    training-metric, eer: 0.07563455988455983    training-metric, ap: 0.9927053892259149    
+2026-05-06 18:17:53,603 - INFO - ===> Test start!
+2026-05-06 18:17:53,609 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/data_dict_test.pickle
+2026-05-06 18:19:19,026 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/metric_dict_best.pickle
+2026-05-06 18:19:19,027 - INFO - dataset: FaceForensics++    step: 6285    testing-loss, overall: 0.16964764893054962    testing-loss, real_loss: 0.19945645332336426    testing-loss, fake_loss: 0.16162820160388947    
+2026-05-06 18:19:19,027 - INFO - dataset: FaceForensics++    step: 6285    testing-metric, acc: 0.9351785714285714    testing-metric, auc: 0.9781574856505103    testing-metric, eer: 0.06875    testing-metric, ap: 0.9948567319825006    testing-metric, video_auc: 0.9987244897959184    testing-metric, acc_real:0.9196428571428571; acc_fake:0.9390625
+2026-05-06 18:19:21,883 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/ckpt_best.pth, current ckpt is 6+891
+2026-05-06 18:19:21,884 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/metric_dict_best.pickle
+2026-05-06 18:19:21,884 - INFO - dataset: avg    step: 6285    testing-metric, acc: 0.9351785714285714    testing-metric, auc: 0.9781574856505103    testing-metric, eer: 0.06875    testing-metric, ap: 0.9948567319825006    testing-metric, video_auc: 0.9987244897959184    
+2026-05-06 18:19:21,884 - INFO - ===> Test Done!
+2026-05-06 18:19:58,730 - INFO - ===> Epoch[6] end with testing auc: 
+================================ Each dataset best metric ================================ 
+| FaceForensics++:  auc=0.9781574856505103 | 
+============================================================================================= 
+================================== Average best metric ====================================== 
+| avg auc: 0.9781574856505103 | 
+| FaceForensics++: 0.9781574856505103 | 
+=============================================================================================!
+2026-05-06 18:19:58,860 - INFO - ===> Epoch[7] start!
+2026-05-06 18:19:58,878 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/train/FaceForensics++/data_dict_train.pickle
+2026-05-06 18:20:38,787 - INFO - Iter: 6293    training-loss, overall: 0.09956078231334686    training-loss, real_loss: 0.07629648596048355    training-loss, fake_loss: 0.10607478767633438    
+2026-05-06 18:20:38,791 - INFO - Iter: 6293    training-metric, acc: 0.96875    training-metric, auc: 1.0    training-metric, eer: 0.0    training-metric, ap: 1.0    
+2026-05-06 18:24:05,305 - INFO - Iter: 6593    training-loss, overall: 0.17247405648231506    training-loss, real_loss: 0.4740017354488373    training-loss, fake_loss: 0.0975932627916336    
+2026-05-06 18:24:05,305 - INFO - Iter: 6593    training-metric, acc: 0.9255208333333333    training-metric, auc: 0.9736741010585321    training-metric, eer: 0.06535396970179573    training-metric, ap: 0.9932809266609048    
+2026-05-06 18:26:11,186 - INFO - ===> Test start!
+2026-05-06 18:26:11,193 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/data_dict_test.pickle
+2026-05-06 18:27:46,336 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/metric_dict_best.pickle
+2026-05-06 18:27:46,337 - INFO - dataset: FaceForensics++    step: 6734    testing-loss, overall: 0.14967241883277893    testing-loss, real_loss: 0.37584713101387024    testing-loss, fake_loss: 0.09082020074129105    
+2026-05-06 18:27:46,338 - INFO - dataset: FaceForensics++    step: 6734    testing-metric, acc: 0.9448214285714286    testing-metric, auc: 0.9796318957270409    testing-metric, eer: 0.06696428571428571    testing-metric, ap: 0.995080450639215    testing-metric, video_auc: 0.9983163265306123    testing-metric, acc_real:0.8535714285714285; acc_fake:0.9676339285714286
+2026-05-06 18:27:49,373 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/ckpt_best.pth, current ckpt is 7+441
+2026-05-06 18:27:49,373 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/metric_dict_best.pickle
+2026-05-06 18:27:49,374 - INFO - dataset: avg    step: 6734    testing-metric, acc: 0.9448214285714286    testing-metric, auc: 0.9796318957270409    testing-metric, eer: 0.06696428571428571    testing-metric, ap: 0.995080450639215    testing-metric, video_auc: 0.9983163265306123    
+2026-05-06 18:27:49,374 - INFO - ===> Test Done!
+2026-05-06 18:29:36,813 - INFO - Iter: 6893    training-loss, overall: 0.1694668084383011    training-loss, real_loss: 0.44315963983535767    training-loss, fake_loss: 0.09849637001752853    
+2026-05-06 18:29:36,813 - INFO - Iter: 6893    training-metric, acc: 0.93    training-metric, auc: 0.9751731253518813    training-metric, eer: 0.05775507825507821    training-metric, ap: 0.9932374666606887    
+2026-05-06 18:33:25,279 - INFO - ===> Test start!
+2026-05-06 18:33:25,285 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/data_dict_test.pickle
+2026-05-06 18:34:56,724 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/metric_dict_best.pickle
+2026-05-06 18:34:56,725 - INFO - dataset: FaceForensics++    step: 7183    testing-loss, overall: 0.14752361178398132    testing-loss, real_loss: 0.27834874391555786    testing-loss, fake_loss: 0.11351536214351654    
+2026-05-06 18:34:56,726 - INFO - dataset: FaceForensics++    step: 7183    testing-metric, acc: 0.9464285714285714    testing-metric, auc: 0.9800067761479593    testing-metric, eer: 0.06339285714285714    testing-metric, ap: 0.9952926929346566    testing-metric, video_auc: 0.999030612244898    testing-metric, acc_real:0.8946428571428572; acc_fake:0.959375
+2026-05-06 18:34:59,736 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/ckpt_best.pth, current ckpt is 7+890
+2026-05-06 18:34:59,737 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/metric_dict_best.pickle
+2026-05-06 18:34:59,738 - INFO - dataset: avg    step: 7183    testing-metric, acc: 0.9464285714285714    testing-metric, auc: 0.9800067761479593    testing-metric, eer: 0.06339285714285714    testing-metric, ap: 0.9952926929346566    testing-metric, video_auc: 0.999030612244898    
+2026-05-06 18:34:59,738 - INFO - ===> Test Done!
+2026-05-06 18:35:38,340 - INFO - ===> Epoch[7] end with testing auc: 
+================================ Each dataset best metric ================================ 
+| FaceForensics++:  auc=0.9800067761479593 | 
+============================================================================================= 
+================================== Average best metric ====================================== 
+| avg auc: 0.9800067761479593 | 
+| FaceForensics++: 0.9800067761479593 | 
+=============================================================================================!
+2026-05-06 18:35:38,487 - INFO - ===> Epoch[8] start!
+2026-05-06 18:35:38,505 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/train/FaceForensics++/data_dict_train.pickle
+2026-05-06 18:36:24,236 - INFO - Iter: 7192    training-loss, overall: 0.12375228106975555    training-loss, real_loss: 0.4496332108974457    training-loss, fake_loss: 0.06340394169092178    
+2026-05-06 18:36:24,236 - INFO - Iter: 7192    training-metric, acc: 0.9375    training-metric, auc: 0.9851851851851853    training-metric, eer: 0.0    training-metric, ap: 0.9973055065647658    
+2026-05-06 18:39:45,459 - INFO - Iter: 7492    training-loss, overall: 0.16273705661296844    training-loss, real_loss: 0.44838058948516846    training-loss, fake_loss: 0.09261542558670044    
+2026-05-06 18:39:45,460 - INFO - Iter: 7492    training-metric, acc: 0.9322916666666666    training-metric, auc: 0.9757848518928481    training-metric, eer: 0.05401627076627072    training-metric, ap: 0.9938591280433928    
+2026-05-06 18:41:53,787 - INFO - ===> Test start!
+2026-05-06 18:41:53,793 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/data_dict_test.pickle
+2026-05-06 18:43:23,458 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/metric_dict_best.pickle
+2026-05-06 18:43:23,459 - INFO - dataset: FaceForensics++    step: 7632    testing-loss, overall: 0.1493547111749649    testing-loss, real_loss: 0.2677243649959564    testing-loss, fake_loss: 0.11856239289045334    
+2026-05-06 18:43:23,459 - INFO - dataset: FaceForensics++    step: 7632    testing-metric, acc: 0.9448214285714286    testing-metric, auc: 0.9804846938775511    testing-metric, eer: 0.06160714285714286    testing-metric, ap: 0.9953945815205771    testing-metric, video_auc: 0.9989285714285714    testing-metric, acc_real:0.8955357142857143; acc_fake:0.9571428571428572
+2026-05-06 18:43:26,473 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/ckpt_best.pth, current ckpt is 8+440
+2026-05-06 18:43:26,474 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/metric_dict_best.pickle
+2026-05-06 18:43:26,475 - INFO - dataset: avg    step: 7632    testing-metric, acc: 0.9448214285714286    testing-metric, auc: 0.9804846938775511    testing-metric, eer: 0.06160714285714286    testing-metric, ap: 0.9953945815205771    testing-metric, video_auc: 0.9989285714285714    
+2026-05-06 18:43:26,475 - INFO - ===> Test Done!
+2026-05-06 18:45:16,102 - INFO - Iter: 7792    training-loss, overall: 0.15782031416893005    training-loss, real_loss: 0.41260772943496704    training-loss, fake_loss: 0.09097635000944138    
+2026-05-06 18:45:16,102 - INFO - Iter: 7792    training-metric, acc: 0.9325    training-metric, auc: 0.9778133222221658    training-metric, eer: 0.053044733044733006    training-metric, ap: 0.9942220331444263    
+2026-05-06 18:49:08,195 - INFO - ===> Test start!
+2026-05-06 18:49:08,200 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/data_dict_test.pickle
+2026-05-06 18:50:32,460 - INFO - dataset: FaceForensics++    step: 8081    testing-loss, overall: 0.15069833397865295    testing-loss, real_loss: 0.4099070131778717    testing-loss, fake_loss: 0.0838102251291275    
+2026-05-06 18:50:32,461 - INFO - dataset: FaceForensics++    step: 8081    testing-metric, acc: 0.9430357142857143    testing-metric, auc: 0.9804683514030612    testing-metric, eer: 0.06517857142857143    testing-metric, ap: 0.9953282536296554    testing-metric, video_auc: 0.9976020408163265    testing-metric, acc_real:0.8383928571428572; acc_fake:0.9691964285714286
+2026-05-06 18:50:32,462 - INFO - dataset: avg    step: 8081    testing-metric, acc: 0.9430357142857143    testing-metric, auc: 0.9804683514030612    testing-metric, eer: 0.06517857142857143    testing-metric, ap: 0.9953282536296554    testing-metric, video_auc: 0.9976020408163265    
+2026-05-06 18:50:32,462 - INFO - ===> Test Done!
+2026-05-06 18:51:13,425 - INFO - ===> Epoch[8] end with testing auc: 
+================================ Each dataset best metric ================================ 
+| FaceForensics++:  auc=0.9804846938775511 | 
+============================================================================================= 
+================================== Average best metric ====================================== 
+| avg auc: 0.9804846938775511 | 
+| FaceForensics++: 0.9804846938775511 | 
+=============================================================================================!
+2026-05-06 18:51:13,568 - INFO - ===> Epoch[9] start!
+2026-05-06 18:51:13,586 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/train/FaceForensics++/data_dict_train.pickle
+2026-05-06 18:51:28,696 - INFO - Iter: 8091    training-loss, overall: 0.07008910179138184    training-loss, real_loss: 0.5463765263557434    training-loss, fake_loss: 0.03833659738302231    
+2026-05-06 18:51:28,696 - INFO - Iter: 8091    training-metric, acc: 0.96875    training-metric, auc: 0.9833333333333334    training-metric, eer: 0.0    training-metric, ap: 0.9989247311827956    
+2026-05-06 18:55:17,357 - INFO - Iter: 8391    training-loss, overall: 0.15464483201503754    training-loss, real_loss: 0.41036221385002136    training-loss, fake_loss: 0.0913616493344307    
+2026-05-06 18:55:17,358 - INFO - Iter: 8391    training-metric, acc: 0.9345833333333333    training-metric, auc: 0.9789848267933231    training-metric, eer: 0.05416474266474263    training-metric, ap: 0.994752992966205    
+2026-05-06 18:57:25,064 - INFO - ===> Test start!
+2026-05-06 18:57:25,071 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/data_dict_test.pickle
+2026-05-06 18:58:52,846 - INFO - dataset: FaceForensics++    step: 8530    testing-loss, overall: 0.1559089571237564    testing-loss, real_loss: 0.3550524115562439    testing-loss, fake_loss: 0.10385934263467789    
+2026-05-06 18:58:52,846 - INFO - dataset: FaceForensics++    step: 8530    testing-metric, acc: 0.9421428571428572    testing-metric, auc: 0.9784889190051019    testing-metric, eer: 0.06517857142857143    testing-metric, ap: 0.994962730641896    testing-metric, video_auc: 0.9969897959183673    testing-metric, acc_real:0.85625; acc_fake:0.9636160714285714
+2026-05-06 18:58:52,847 - INFO - dataset: avg    step: 8530    testing-metric, acc: 0.9421428571428572    testing-metric, auc: 0.9784889190051019    testing-metric, eer: 0.06517857142857143    testing-metric, ap: 0.994962730641896    testing-metric, video_auc: 0.9969897959183673    
+2026-05-06 18:58:52,847 - INFO - ===> Test Done!
+2026-05-06 19:00:42,034 - INFO - Iter: 8691    training-loss, overall: 0.16165030002593994    training-loss, real_loss: 0.4525100886821747    training-loss, fake_loss: 0.0919058546423912    
+2026-05-06 19:00:42,035 - INFO - Iter: 8691    training-metric, acc: 0.93125    training-metric, auc: 0.9756593354882795    training-metric, eer: 0.06476406926406922    training-metric, ap: 0.9938440446941157    
+2026-05-06 19:04:32,610 - INFO - ===> Test start!
+2026-05-06 19:04:32,616 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/data_dict_test.pickle
+2026-05-06 19:05:51,343 - INFO - dataset: FaceForensics++    step: 8979    testing-loss, overall: 0.15585535764694214    testing-loss, real_loss: 0.29157328605651855    testing-loss, fake_loss: 0.11977677047252655    
+2026-05-06 19:05:51,344 - INFO - dataset: FaceForensics++    step: 8979    testing-metric, acc: 0.9428571428571428    testing-metric, auc: 0.9795119180484695    testing-metric, eer: 0.06785714285714285    testing-metric, ap: 0.9952122405604062    testing-metric, video_auc: 0.9979591836734694    testing-metric, acc_real:0.8848214285714285; acc_fake:0.9573660714285714
+2026-05-06 19:05:51,344 - INFO - dataset: avg    step: 8979    testing-metric, acc: 0.9428571428571428    testing-metric, auc: 0.9795119180484695    testing-metric, eer: 0.06785714285714285    testing-metric, ap: 0.9952122405604062    testing-metric, video_auc: 0.9979591836734694    
+2026-05-06 19:05:51,345 - INFO - ===> Test Done!
+2026-05-06 19:06:34,302 - INFO - ===> Epoch[9] end with testing auc: 
+================================ Each dataset best metric ================================ 
+| FaceForensics++:  auc=0.9804846938775511 | 
+============================================================================================= 
+================================== Average best metric ====================================== 
+| avg auc: 0.9804846938775511 | 
+| FaceForensics++: 0.9804846938775511 | 
+=============================================================================================!
+2026-05-06 19:06:34,434 - INFO - ===> Epoch[10] start!
+2026-05-06 19:06:34,453 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/train/FaceForensics++/data_dict_train.pickle
+2026-05-06 19:07:17,317 - INFO - Iter: 8990    training-loss, overall: 0.3488841652870178    training-loss, real_loss: 0.5285653471946716    training-loss, fake_loss: 0.2785741090774536    
+2026-05-06 19:07:17,318 - INFO - Iter: 8990    training-metric, acc: 0.8125    training-metric, auc: 0.9082125603864735    training-metric, eer: 0.2222222222222222    training-metric, ap: 0.9686047236122198    
+2026-05-06 19:10:40,401 - INFO - Iter: 9290    training-loss, overall: 0.15284085273742676    training-loss, real_loss: 0.4036974310874939    training-loss, fake_loss: 0.08882582932710648    
+2026-05-06 19:10:40,401 - INFO - Iter: 9290    training-metric, acc: 0.9372916666666666    training-metric, auc: 0.9791363459508633    training-metric, eer: 0.046430014430014405    training-metric, ap: 0.9945254194430627    
+2026-05-06 19:12:51,867 - INFO - ===> Test start!
+2026-05-06 19:12:51,875 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/data_dict_test.pickle
+2026-05-06 19:14:10,960 - INFO - dataset: FaceForensics++    step: 9428    testing-loss, overall: 0.1600446105003357    testing-loss, real_loss: 0.24414072930812836    testing-loss, fake_loss: 0.13827329874038696    
+2026-05-06 19:14:10,960 - INFO - dataset: FaceForensics++    step: 9428    testing-metric, acc: 0.9433928571428571    testing-metric, auc: 0.9795673230229591    testing-metric, eer: 0.06339285714285714    testing-metric, ap: 0.9952072558043831    testing-metric, video_auc: 0.9987244897959184    testing-metric, acc_real:0.9; acc_fake:0.9542410714285714
+2026-05-06 19:14:10,961 - INFO - dataset: avg    step: 9428    testing-metric, acc: 0.9433928571428571    testing-metric, auc: 0.9795673230229591    testing-metric, eer: 0.06339285714285714    testing-metric, ap: 0.9952072558043831    testing-metric, video_auc: 0.9987244897959184    
+2026-05-06 19:14:10,961 - INFO - ===> Test Done!
+2026-05-06 19:16:03,620 - INFO - Iter: 9590    training-loss, overall: 0.14549170434474945    training-loss, real_loss: 0.38210633397102356    training-loss, fake_loss: 0.08476804941892624    
+2026-05-06 19:16:03,620 - INFO - Iter: 9590    training-metric, acc: 0.9388541666666667    training-metric, auc: 0.9809850450065384    training-metric, eer: 0.04456641463330422    training-metric, ap: 0.9950924643333255    
+2026-05-06 19:19:57,289 - INFO - ===> Test start!
+2026-05-06 19:19:57,296 - INFO - data_dict saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/data_dict_test.pickle
+2026-05-06 19:21:32,135 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/FaceForensics++/metric_dict_best.pickle
+2026-05-06 19:21:32,136 - INFO - dataset: FaceForensics++    step: 9877    testing-loss, overall: 0.1481868028640747    testing-loss, real_loss: 0.27036240696907043    testing-loss, fake_loss: 0.11625239998102188    
+2026-05-06 19:21:32,137 - INFO - dataset: FaceForensics++    step: 9877    testing-metric, acc: 0.94625    testing-metric, auc: 0.981098931760204    testing-metric, eer: 0.06160714285714286    testing-metric, ap: 0.9955321148969296    testing-metric, video_auc: 0.9993367346938775    testing-metric, acc_real:0.8982142857142857; acc_fake:0.9582589285714286
+2026-05-06 19:21:35,135 - INFO - Checkpoint saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/ckpt_best.pth, current ckpt is 10+887
+2026-05-06 19:21:35,136 - INFO - Metrics saved to experiments/orthogonal_loss_exp/logs/FaceForensics++_no_ortho/effort_orthogonal_loss_exp_2026-05-06-16-38-02/test/avg/metric_dict_best.pickle
+2026-05-06 19:21:35,137 - INFO - dataset: avg    step: 9877    testing-metric, acc: 0.94625    testing-metric, auc: 0.981098931760204    testing-metric, eer: 0.06160714285714286    testing-metric, ap: 0.9955321148969296    testing-metric, video_auc: 0.9993367346938775    
+2026-05-06 19:21:35,137 - INFO - ===> Test Done!
+2026-05-06 19:22:18,791 - INFO - ===> Epoch[10] end with testing auc: 
+================================ Each dataset best metric ================================ 
+| FaceForensics++:  auc=0.981098931760204 | 
+============================================================================================= 
+================================== Average best metric ====================================== 
+| avg auc: 0.981098931760204 | 
+| FaceForensics++: 0.981098931760204 | 
+=============================================================================================!
+2026-05-06 19:22:18,792 - INFO - Stop Training on best Testing metric 
+================================ Each dataset best metric ================================ 
+| FaceForensics++:  auc=0.981098931760204 | 
+============================================================================================= 
+================================== Average best metric ====================================== 
+| avg auc: 0.981098931760204 | 
+| FaceForensics++: 0.981098931760204 | 
+=============================================================================================
