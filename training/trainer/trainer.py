@@ -123,9 +123,19 @@ class Trainer(object):
             saved = torch.load(model_path, map_location='cpu')
             suffix = model_path.split('.')[-1]
             if suffix == 'p':
-                self.model.load_state_dict(saved.state_dict())
+                state_dict = saved.state_dict()
             else:
-                self.model.load_state_dict(saved)
+                state_dict = saved
+            
+            # Remove 'module.' prefix if the current model is not wrapped in DataParallel
+            new_state_dict = {}
+            for k, v in state_dict.items():
+                if k.startswith('module.') and not isinstance(self.model, (DataParallel, DDP)):
+                    new_state_dict[k[7:]] = v
+                else:
+                    new_state_dict[k] = v
+                    
+            self.model.load_state_dict(new_state_dict)
             self.logger.info('Model found in {}'.format(model_path))
         else:
             raise NotImplementedError(
