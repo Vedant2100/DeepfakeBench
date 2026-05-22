@@ -47,6 +47,7 @@ parser.add_argument('--no-save_feat', dest='save_feat', action='store_false', de
 parser.add_argument("--ddp", action='store_true', default=False)
 parser.add_argument('--local_rank', type=int, default=0)
 parser.add_argument('--task_target', type=str, default="", help='specify the target of current training task')
+parser.add_argument('--svd_residual_rank', type=int, default=None, help='rank of the trainable SVD residual (r)')
 parser.add_argument('--continue_weight', type=str, default=None, help='path to the weights to continue training from')
 args = parser.parse_args()
 torch.cuda.set_device(args.local_rank)
@@ -245,6 +246,8 @@ def main():
     config['save_feat'] = args.save_feat
     if args.task_target:
         config['task_target'] = args.task_target
+    if args.svd_residual_rank is not None:
+        config['svd_residual_rank'] = args.svd_residual_rank
     if config['lmdb']:
         config['dataset_json_folder'] = 'preprocessing/dataset_json_v3'
     # create logger
