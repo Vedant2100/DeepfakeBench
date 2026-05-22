@@ -49,8 +49,8 @@ class EffortDetector(nn.Module):
         clip_model = CLIPModel.from_pretrained("openai/clip-vit-large-patch14")
 
         # Apply SVD to self_attn layers only
-        # ViT-L/14 224*224: 1024-10
-        clip_model.vision_model = apply_svd_residual_to_self_attn(clip_model.vision_model, r=1024-10)
+        # ViT-L/14 224*224: 1024-1
+        clip_model.vision_model = apply_svd_residual_to_self_attn(clip_model.vision_model, r=1024-1)
 
         for name, param in clip_model.vision_model.named_parameters():
             print('{}: {}'.format(name, param.requires_grad))
