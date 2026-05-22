@@ -118,7 +118,7 @@ class Trainer(object):
         self.model.eval()
         self.train = False
 
-    def load_ckpt(self, model_path):
+    def load_ckpt(self, model_path, strict=True):
         if os.path.isfile(model_path):
             saved = torch.load(model_path, map_location='cpu')
             suffix = model_path.split('.')[-1]
@@ -135,8 +135,8 @@ class Trainer(object):
                 else:
                     new_state_dict[k] = v
                     
-            self.model.load_state_dict(new_state_dict)
-            self.logger.info('Model found in {}'.format(model_path))
+            self.model.load_state_dict(new_state_dict, strict=strict)
+            self.logger.info('Model found in {}, strict_load={}'.format(model_path, strict))
         else:
             raise NotImplementedError(
                 "=> no model found at '{}'".format(model_path))

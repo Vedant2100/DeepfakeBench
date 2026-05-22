@@ -49,6 +49,8 @@ parser.add_argument('--local_rank', type=int, default=0)
 parser.add_argument('--task_target', type=str, default="", help='specify the target of current training task')
 parser.add_argument('--svd_residual_rank', type=int, default=None, help='rank of the trainable SVD residual (r)')
 parser.add_argument('--continue_weight', type=str, default=None, help='path to the weights to continue training from')
+parser.add_argument('--strict_load', action='store_true', default=True, help='Use strict=True when loading state dict')
+parser.add_argument('--no-strict_load', dest='strict_load', action='store_false', help='Use strict=False when loading state dict')
 args = parser.parse_args()
 torch.cuda.set_device(args.local_rank)
 
@@ -304,7 +306,7 @@ def main():
     trainer = Trainer(config, model, optimizer, scheduler, logger, metric_scoring, time_now=timenow)
 
     if args.continue_weight:
-        trainer.load_ckpt(args.continue_weight)
+        trainer.load_ckpt(args.continue_weight, strict=args.strict_load)
 
     # Initialize MLflow dynamically based on the detector config directory
     exp_dir = os.path.dirname(args.detector_path)
