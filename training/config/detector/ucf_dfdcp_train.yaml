@@ -70,7 +70,7 @@ label_dict:
   UADFV_Real: 0
   roop_Fake: 1
   roop_Real: 0
-log_dir: /data/home/zhiyuanyan/DeepfakeBench/debug_logs/ucf_baseline_T3
+log_dir: ./logs/training
 logdir: ./logs
 loss_func:
   cls_loss: cross_entropy
