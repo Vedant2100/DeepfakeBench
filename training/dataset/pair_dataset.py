@@ -24,8 +24,10 @@ class pairDataset(DeepfakeAbstractBaseDataset):
     def __getitem__(self, index, norm=True):
         # Get the fake and real image paths and labels
         fake_image_path, fake_spe_label, fake_label = self.fake_imglist[index]
+        fake_image_path = fake_image_path.replace('\\', '/')
         real_index = random.randint(0, len(self.real_imglist) - 1)  # Randomly select a real image
         real_image_path, real_spe_label, real_label = self.real_imglist[real_index]
+        real_image_path = real_image_path.replace('\\', '/')
 
         # Get the mask and landmark paths for fake and real images
         fake_mask_path = fake_image_path.replace('frames', 'masks')
