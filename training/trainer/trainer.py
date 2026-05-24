@@ -135,6 +135,16 @@ class Trainer(object):
                 else:
                     new_state_dict[k] = v
                     
+            if not strict:
+                model_state = self.model.state_dict()
+                filtered_state_dict = {}
+                for k, v in new_state_dict.items():
+                    if k in model_state and v.shape != model_state[k].shape:
+                        self.logger.warning(f"Shape mismatch for {k}: checkpoint {v.shape}, model {model_state[k].shape}. Skipping due to strict=False.")
+                    else:
+                        filtered_state_dict[k] = v
+                new_state_dict = filtered_state_dict
+
             self.model.load_state_dict(new_state_dict, strict=strict)
             self.logger.info('Model found in {}, strict_load={}'.format(model_path, strict))
         else:
