@@ -18,7 +18,7 @@ cd /data/AmitRoyChowdhury/vedant/DeepfakeBench/
 mkdir -p logs
 
 CONFIG_FFPP="training/config/detector/ffpp_train.yaml"
-CONFIG_CELEBDF="training/config/detector/celebdf_train.yaml"
+CONFIG_CELEBDF="training/config/detector/celebdfv2_train.yaml"
 CONFIG_DFDCP="training/config/detector/dfdcp_train.yaml"
 
 run_sequence() {
@@ -66,22 +66,22 @@ run_sequence() {
     echo ""
 }
 
-# 0: FFPP -> CelebDF -> DFDCP
-run_sequence 0 "FFPP" $CONFIG_FFPP "CelebDF" $CONFIG_CELEBDF "DFDCP" $CONFIG_DFDCP
+# 0: FFPP -> CelebDFv2 -> DFDCP
+run_sequence 0 "FFPP" $CONFIG_FFPP "CelebDFv2" $CONFIG_CELEBDF "DFDCP" $CONFIG_DFDCP
 
-# 1: FFPP -> DFDCP -> CelebDF
-run_sequence 1 "FFPP" $CONFIG_FFPP "DFDCP" $CONFIG_DFDCP "CelebDF" $CONFIG_CELEBDF
+# 1: FFPP -> DFDCP -> CelebDFv2
+run_sequence 1 "FFPP" $CONFIG_FFPP "DFDCP" $CONFIG_DFDCP "CelebDFv2" $CONFIG_CELEBDF
 
-# 2: CelebDF -> FFPP -> DFDCP
-run_sequence 2 "CelebDF" $CONFIG_CELEBDF "FFPP" $CONFIG_FFPP "DFDCP" $CONFIG_DFDCP
+# 2: CelebDFv2 -> FFPP -> DFDCP
+run_sequence 2 "CelebDFv2" $CONFIG_CELEBDF "FFPP" $CONFIG_FFPP "DFDCP" $CONFIG_DFDCP
 
-# 3: CelebDF -> DFDCP -> FFPP
-run_sequence 3 "CelebDF" $CONFIG_CELEBDF "DFDCP" $CONFIG_DFDCP "FFPP" $CONFIG_FFPP
+# 3: CelebDFv2 -> DFDCP -> FFPP
+run_sequence 3 "CelebDFv2" $CONFIG_CELEBDF "DFDCP" $CONFIG_DFDCP "FFPP" $CONFIG_FFPP
 
-# 4: DFDCP -> FFPP -> CelebDF
-run_sequence 4 "DFDCP" $CONFIG_DFDCP "FFPP" $CONFIG_FFPP "CelebDF" $CONFIG_CELEBDF
+# 4: DFDCP -> FFPP -> CelebDFv2
+run_sequence 4 "DFDCP" $CONFIG_DFDCP "FFPP" $CONFIG_FFPP "CelebDFv2" $CONFIG_CELEBDF
 
-# 5: DFDCP -> CelebDF -> FFPP
-run_sequence 5 "DFDCP" $CONFIG_DFDCP "CelebDF" $CONFIG_CELEBDF "FFPP" $CONFIG_FFPP
+# 5: DFDCP -> CelebDFv2 -> FFPP
+run_sequence 5 "DFDCP" $CONFIG_DFDCP "CelebDFv2" $CONFIG_CELEBDF "FFPP" $CONFIG_FFPP
 
 echo "All 6 permutations completed successfully!"

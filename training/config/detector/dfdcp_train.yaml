@@ -9,9 +9,9 @@ backbone_config:
   inc: 3
   dropout: false
 
-all_dataset: [FaceForensics++, FF-F2F, FF-DF, FF-FS, FF-NT, FaceShifter, DeepFakeDetection, Celeb-DF-v1, Celeb-DF-v2, DFDCP, DFDC, DeeperForensics-1.0, UADFV]
+all_dataset: [FaceForensics++, FF-F2F, FF-DF, FF-FS, FF-NT, FaceShifter, DeepFakeDetection, Celeb-DF-v2, Celeb-DF-v2, DFDCP, DFDC, DeeperForensics-1.0, UADFV]
 train_dataset: [DFDCP]
-test_dataset: [FaceForensics++, Celeb-DF-v1, DFDCP]
+test_dataset: [FaceForensics++, Celeb-DF-v2, DFDCP]
 
 compression: c23
 train_batchSize: 32
