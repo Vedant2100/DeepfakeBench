@@ -23,8 +23,7 @@ all_dataset:
 - UADFV
 train_dataset:
 - Celeb-DF-v2
-test_dataset:
-- Celeb-DF-v2
+test_dataset: [FaceForensics++, Celeb-DF-v1, Celeb-DF-v2, DFDCP]
 compression: c23
 train_batchSize: 32
 test_batchSize: 32
