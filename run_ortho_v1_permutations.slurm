@@ -17,9 +17,9 @@ conda activate DeepfakeBenchv2
 cd /data/AmitRoyChowdhury/vedant/DeepfakeBench/
 mkdir -p logs
 
-CONFIG_FFPP="training/config/detector/ffpp_train_ortho.yaml"
+CONFIG_FFPP="training/config/detector/ffpp_train_ortho_v1.yaml"
 CONFIG_CELEBDF="training/config/detector/celebdf_train_ortho.yaml"
-CONFIG_DFDCP="training/config/detector/dfdcp_train_ortho.yaml"
+CONFIG_DFDCP="training/config/detector/dfdcp_train_ortho_v1.yaml"
 
 run_sequence() {
     local perm_idx=$1

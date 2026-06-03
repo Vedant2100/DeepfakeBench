@@ -1,4 +1,4 @@
-log_dir: experiments/orthogonal_loss_exp/logs/Celeb-DF-v2_ortho
+log_dir: experiments/orthogonal_loss_exp/logs/FaceForensics++_ortho
 pretrained: no need to provide this for the effort model
 model_name: effort_orthogonal_loss_exp
 backbone_name: vit
@@ -22,8 +22,8 @@ all_dataset:
 - DeeperForensics-1.0
 - UADFV
 train_dataset:
-- Celeb-DF-v2
-test_dataset: [FaceForensics++, Celeb-DF-v2, DFDCP]
+- FaceForensics++
+test_dataset: [FaceForensics++, Celeb-DF-v1, DFDCP]
 compression: c23
 train_batchSize: 32
 test_batchSize: 32
