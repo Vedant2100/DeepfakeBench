@@ -34,6 +34,7 @@ from detectors import DETECTOR
 from dataset import *
 from metrics.utils import parse_metric_for_print
 from logger import create_logger, RankFilter
+import mlflow
 
 parser = argparse.ArgumentParser(description='Process some paths.')
 parser.add_argument('--detector_path', type=str,
@@ -46,7 +47,10 @@ parser.add_argument('--no-save_feat', dest='save_feat', action='store_false', de
 parser.add_argument("--ddp", action='store_true', default=False)
 parser.add_argument('--local_rank', type=int, default=0)
 parser.add_argument('--task_target', type=str, default="", help='specify the target of current training task')
+parser.add_argument('--svd_residual_rank', type=int, default=None, help='rank of the trainable SVD residual (r)')
 parser.add_argument('--continue_weight', type=str, default=None, help='path to the weights to continue training from')
+parser.add_argument('--strict_load', action='store_true', default=True, help='Use strict=True when loading state dict')
+parser.add_argument('--no-strict_load', dest='strict_load', action='store_false', help='Use strict=False when loading state dict')
 args = parser.parse_args()
 torch.cuda.set_device(args.local_rank)
 
@@ -242,11 +246,15 @@ def main():
         config['test_dataset'] = args.test_dataset
     config['save_ckpt'] = args.save_ckpt
     config['save_feat'] = args.save_feat
+    if args.task_target:
+        config['task_target'] = args.task_target
+    if args.svd_residual_rank is not None:
+        config['svd_residual_rank'] = args.svd_residual_rank
     if config['lmdb']:
         config['dataset_json_folder'] = 'preprocessing/dataset_json_v3'
     # create logger
     timenow=datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
-    task_str = f"_{config['task_target']}" if config.get('task_target', None) is not None else ""
+    task_str = f"_{config['task_target']}" if config.get('task_target') else ""
     logger_path =  os.path.join(
                 config['log_dir'],
                 config['model_name'] + task_str + '_' + timenow
@@ -298,7 +306,27 @@ def main():
     trainer = Trainer(config, model, optimizer, scheduler, logger, metric_scoring, time_now=timenow)
 
     if args.continue_weight:
-        trainer.load_ckpt(args.continue_weight)
+        trainer.load_ckpt(args.continue_weight, strict=args.strict_load)
+
+    # Initialize MLflow dynamically based on the detector config directory
+    exp_dir = os.path.dirname(args.detector_path)
+    mlflow_dir = os.path.abspath(os.path.join(exp_dir, 'mlruns'))
+    experiment_name = os.path.basename(exp_dir)
+    
+    mlflow.set_tracking_uri(f"file://{mlflow_dir}")
+    mlflow.set_experiment(experiment_name)
+    
+    # Start MLflow run
+    run_name = config['model_name'] + task_str + '_' + timenow
+    mlflow.start_run(run_name=run_name)
+    
+    # Log config parameters
+    for k, v in config.items():
+        # MLflow params must be strings or numbers
+        if isinstance(v, (str, int, float, bool)):
+            mlflow.log_param(k, v)
+        elif isinstance(v, list):
+            mlflow.log_param(k, str(v))
 
     # start training
     for epoch in range(config['start_epoch'], config['nEpochs'] + 1):
@@ -320,6 +348,8 @@ def main():
     # close the tensorboard writers
     for writer in trainer.writers.values():
         writer.close()
+        
+    mlflow.end_run()
 
 
 

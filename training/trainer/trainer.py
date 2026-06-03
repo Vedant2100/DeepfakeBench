@@ -16,6 +16,7 @@ import logging
 import numpy as np
 from copy import deepcopy
 from collections import defaultdict
+import mlflow
 from tqdm import tqdm
 import time
 import torch
@@ -117,15 +118,35 @@ class Trainer(object):
         self.model.eval()
         self.train = False
 
-    def load_ckpt(self, model_path):
+    def load_ckpt(self, model_path, strict=True):
         if os.path.isfile(model_path):
             saved = torch.load(model_path, map_location='cpu')
             suffix = model_path.split('.')[-1]
             if suffix == 'p':
-                self.model.load_state_dict(saved.state_dict())
+                state_dict = saved.state_dict()
             else:
-                self.model.load_state_dict(saved)
-            self.logger.info('Model found in {}'.format(model_path))
+                state_dict = saved
+            
+            # Remove 'module.' prefix if the current model is not wrapped in DataParallel
+            new_state_dict = {}
+            for k, v in state_dict.items():
+                if k.startswith('module.') and not isinstance(self.model, (DataParallel, DDP)):
+                    new_state_dict[k[7:]] = v
+                else:
+                    new_state_dict[k] = v
+                    
+            if not strict:
+                model_state = self.model.state_dict()
+                filtered_state_dict = {}
+                for k, v in new_state_dict.items():
+                    if k in model_state and v.shape != model_state[k].shape:
+                        self.logger.warning(f"Shape mismatch for {k}: checkpoint {v.shape}, model {model_state[k].shape}. Skipping due to strict=False.")
+                    else:
+                        filtered_state_dict[k] = v
+                new_state_dict = filtered_state_dict
+
+            self.model.load_state_dict(new_state_dict, strict=strict)
+            self.logger.info('Model found in {}, strict_load={}'.format(model_path, strict))
         else:
             raise NotImplementedError(
                 "=> no model found at '{}'".format(model_path))
@@ -240,8 +261,8 @@ class Trainer(object):
             self.setTrain()
             # more elegant and more scalable way of moving data to GPU
             for key in data_dict.keys():
-                if data_dict[key]!=None and key!='name':
-                    data_dict[key]=data_dict[key].cuda()
+                if hasattr(data_dict[key], 'cuda'):
+                    data_dict[key] = data_dict[key].cuda()
 
             losses,predictions=self.train_step(data_dict)
 
@@ -279,6 +300,7 @@ class Trainer(object):
                     # tensorboard-1. loss
                     writer = self.get_writer('train', ','.join(self.config['train_dataset']), k)
                     writer.add_scalar(f'train_loss/{k}', v_avg, global_step=step_cnt)
+                    mlflow.log_metric(f'train_loss/{k}', v_avg, step=step_cnt)
                 self.logger.info(loss_str)
                 # info for metric
                 metric_str = f"Iter: {step_cnt}    "
@@ -291,6 +313,7 @@ class Trainer(object):
                     # tensorboard-2. metric
                     writer = self.get_writer('train', ','.join(self.config['train_dataset']), k)
                     writer.add_scalar(f'train_metric/{k}', v_avg, global_step=step_cnt)
+                    mlflow.log_metric(f'train_metric/{k}', v_avg, step=step_cnt)
                 self.logger.info(metric_str)
 
 
@@ -391,6 +414,7 @@ class Trainer(object):
         if losses_one_dataset_recorder is not None:
             # info for each dataset
             loss_str = f"dataset: {key}    step: {step}    "
+            safe_key = key.replace('+', 'plus')
             for k, v in losses_one_dataset_recorder.items():
                 writer = self.get_writer('test', key, k)
                 v_avg = v.average()
@@ -399,10 +423,12 @@ class Trainer(object):
                     continue
                 # tensorboard-1. loss
                 writer.add_scalar(f'test_losses/{k}', v_avg, global_step=step)
+                mlflow.log_metric(f'test_loss_{safe_key}/{k}', v_avg, step=step)
                 loss_str += f"testing-loss, {k}: {v_avg}    "
             self.logger.info(loss_str)
         # tqdm.write(loss_str)
         metric_str = f"dataset: {key}    step: {step}    "
+        safe_key = key.replace('+', 'plus')
         for k, v in metric_one_dataset.items():
             if k == 'pred' or k == 'label' or k=='dataset_dict':
                 continue
@@ -410,11 +436,14 @@ class Trainer(object):
             # tensorboard-2. metric
             writer = self.get_writer('test', key, k)
             writer.add_scalar(f'test_metrics/{k}', v, global_step=step)
+            mlflow.log_metric(f'test_metric_{safe_key}/{k}', v, step=step)
         if 'pred' in metric_one_dataset:
             acc_real, acc_fake = self.get_respect_acc(metric_one_dataset['pred'], metric_one_dataset['label'])
             metric_str += f'testing-metric, acc_real:{acc_real}; acc_fake:{acc_fake}'
             writer.add_scalar(f'test_metrics/acc_real', acc_real, global_step=step)
             writer.add_scalar(f'test_metrics/acc_fake', acc_fake, global_step=step)
+            mlflow.log_metric(f'test_metric_{safe_key}/acc_real', acc_real, step=step)
+            mlflow.log_metric(f'test_metric_{safe_key}/acc_fake', acc_fake, step=step)
         self.logger.info(metric_str)
     def test_epoch(self, epoch, iteration, test_data_loaders, step):
         # set model to eval mode
