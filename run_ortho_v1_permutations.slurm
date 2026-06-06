@@ -36,7 +36,7 @@ run_sequence() {
     
     local TGT1="CL_ortho_v1_P${perm_idx}_${ds1}"
     local LOG_DIR1=$(grep "^log_dir:" "$cfg1" | awk '{print $2}')
-    local LOG1=$(ls -td ${LOG_DIR1}/effort_${TGT1}_* 2>/dev/null | head -1)
+    local LOG1=$(ls -td ${LOG_DIR1}/*_${TGT1}_* 2>/dev/null | head -1)
     local CKPT1="$LOG1/test/avg/ckpt_best.pth"
     
     echo "Task 1: Training EFFORT on $ds1 (Baseline)"
@@ -44,7 +44,7 @@ run_sequence() {
         echo "Found existing checkpoint, skipping training: $CKPT1"
     else
         python training/train.py --detector_path "$cfg1" --task_target "$TGT1" --svd_residual_rank 1
-        LOG1=$(ls -td ${LOG_DIR1}/effort_${TGT1}_* | head -1)
+        LOG1=$(ls -td ${LOG_DIR1}/*_${TGT1}_* | head -1)
         CKPT1="$LOG1/test/avg/ckpt_best.pth"
         if [ ! -f "$CKPT1" ]; then
             echo "Error: Checkpoint $CKPT1 not found!"
@@ -55,7 +55,7 @@ run_sequence() {
     
     local TGT2="CL_ortho_v1_P${perm_idx}_${ds2}"
     local LOG_DIR2=$(grep "^log_dir:" "$cfg2" | awk '{print $2}')
-    local LOG2=$(ls -td ${LOG_DIR2}/effort_${TGT2}_* 2>/dev/null | head -1)
+    local LOG2=$(ls -td ${LOG_DIR2}/*_${TGT2}_* 2>/dev/null | head -1)
     local CKPT2="$LOG2/test/avg/ckpt_best.pth"
     
     echo "Task 2: Training EFFORT on $ds2 (Adaptation)"
@@ -63,7 +63,7 @@ run_sequence() {
         echo "Found existing checkpoint, skipping training: $CKPT2"
     else
         python training/train.py --detector_path "$cfg2" --task_target "$TGT2" --continue_weight "$CKPT1" --svd_residual_rank 1
-        LOG2=$(ls -td ${LOG_DIR2}/effort_${TGT2}_* | head -1)
+        LOG2=$(ls -td ${LOG_DIR2}/*_${TGT2}_* | head -1)
         CKPT2="$LOG2/test/avg/ckpt_best.pth"
         if [ ! -f "$CKPT2" ]; then
             echo "Error: Checkpoint $CKPT2 not found!"
