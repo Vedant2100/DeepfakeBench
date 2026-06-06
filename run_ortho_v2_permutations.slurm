@@ -35,28 +35,42 @@ run_sequence() {
     echo "========================================================"
     
     local TGT1="CL_ortho_v2_P${perm_idx}_${ds1}"
-    echo "Task 1: Training EFFORT on $ds1 (Baseline)"
-    python training/train.py --detector_path "$cfg1" --task_target "$TGT1" --svd_residual_rank 1
-    
-    local LOG1=$(ls -td logs/training/effort_${TGT1}_* | head -1)
+    local LOG_DIR1=$(grep "^log_dir:" "$cfg1" | awk '{print $2}')
+    local LOG1=$(ls -td ${LOG_DIR1}/effort_${TGT1}_* 2>/dev/null | head -1)
     local CKPT1="$LOG1/test/avg/ckpt_best.pth"
-    if [ ! -f "$CKPT1" ]; then
-        echo "Error: Checkpoint $CKPT1 not found!"
-        exit 1
+    
+    echo "Task 1: Training EFFORT on $ds1 (Baseline)"
+    if [ -f "$CKPT1" ]; then
+        echo "Found existing checkpoint, skipping training: $CKPT1"
+    else
+        python training/train.py --detector_path "$cfg1" --task_target "$TGT1" --svd_residual_rank 1
+        LOG1=$(ls -td ${LOG_DIR1}/effort_${TGT1}_* | head -1)
+        CKPT1="$LOG1/test/avg/ckpt_best.pth"
+        if [ ! -f "$CKPT1" ]; then
+            echo "Error: Checkpoint $CKPT1 not found!"
+            exit 1
+        fi
+        echo "Saved new checkpoint: $CKPT1"
     fi
-    echo "Found $ds1 Checkpoint: $CKPT1"
     
     local TGT2="CL_ortho_v2_P${perm_idx}_${ds2}"
-    echo "Task 2: Training EFFORT on $ds2 (Adaptation)"
-    python training/train.py --detector_path "$cfg2" --task_target "$TGT2" --continue_weight "$CKPT1" --svd_residual_rank 1
-    
-    local LOG2=$(ls -td logs/training/effort_${TGT2}_* | head -1)
+    local LOG_DIR2=$(grep "^log_dir:" "$cfg2" | awk '{print $2}')
+    local LOG2=$(ls -td ${LOG_DIR2}/effort_${TGT2}_* 2>/dev/null | head -1)
     local CKPT2="$LOG2/test/avg/ckpt_best.pth"
-    if [ ! -f "$CKPT2" ]; then
-        echo "Error: Checkpoint $CKPT2 not found!"
-        exit 1
+    
+    echo "Task 2: Training EFFORT on $ds2 (Adaptation)"
+    if [ -f "$CKPT2" ]; then
+        echo "Found existing checkpoint, skipping training: $CKPT2"
+    else
+        python training/train.py --detector_path "$cfg2" --task_target "$TGT2" --continue_weight "$CKPT1" --svd_residual_rank 1
+        LOG2=$(ls -td ${LOG_DIR2}/effort_${TGT2}_* | head -1)
+        CKPT2="$LOG2/test/avg/ckpt_best.pth"
+        if [ ! -f "$CKPT2" ]; then
+            echo "Error: Checkpoint $CKPT2 not found!"
+            exit 1
+        fi
+        echo "Saved new checkpoint: $CKPT2"
     fi
-    echo "Found $ds2 Checkpoint: $CKPT2"
     
     local TGT3="CL_ortho_v2_P${perm_idx}_${ds3}"
     echo "Task 3: Training EFFORT on $ds3 (Adaptation)"
