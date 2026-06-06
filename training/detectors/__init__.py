@@ -44,4 +44,5 @@ from .multi_attention_detector import MultiAttentionDetector
 from .sia_detector import SIADetector
 from .tall_detector import TALLDetector
 from .effort_detector import EffortDetector
+from .effort_detector_sq_ortho import EffortSqOrthoDetector
 from .foundation_detector import FoundationDetector
