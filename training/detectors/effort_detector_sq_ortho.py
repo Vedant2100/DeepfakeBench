@@ -30,7 +30,7 @@ logger = logging.getLogger(__name__)
 @DETECTOR.register_module(module_name='effort_with_sq_ortho_loss_exp')
 class EffortSqOrthoDetector(nn.Module):
     def __init__(self, config=None):
-        super(EffortDetector, self).__init__()
+        super(EffortSqOrthoDetector, self).__init__()
         self.config = config
         self.backbone = self.build_backbone(config)
         self.head = nn.Linear(1024, 2)
